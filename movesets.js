@@ -1,0 +1,459 @@
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  WIKI_MOVESETS — Movesets de cada Fakémon                       ║
+// ╠══════════════════════════════════════════════════════════════════╣
+// ║  Formato de cada entrada:                                        ║
+// ║    "level:movename"  → se aprende al subir de nivel              ║
+// ║    "tm:movename"     → se aprende por TM                         ║
+// ║    "tutor:movename"  → se aprende por Move Tutor                 ║
+// ║    "egg:movename"    → Egg Move (herencia)                       ║
+// ║                                                                   ║
+// ║  Cómo añadir un Fakémon nuevo:                                   ║
+// ║  1. Calcula su slug:                                              ║
+// ║       • minúsculas                                               ║
+// ║       • espacios y paréntesis → guión bajo                       ║
+// ║       • elimina tildes/caracteres especiales                     ║
+// ║       • si empieza por "mega ", quita ese prefijo                ║
+// ║     Ejemplos:                                                     ║
+// ║       "Velvettia"           → "velvettia"                        ║
+// ║       "Goodra (Boglands)"   → "goodra_boglands"                  ║
+// ║       "Mega Leavanny Clockwork" → "leavanny_clockwork"           ║
+// ║       "Porytron-Z"          → "porytron_z"                       ║
+// ║  2. Añade el bloque al objeto WIKI_MOVESETS siguiendo la         ║
+// ║     plantilla del final de este archivo.                         ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+window.WIKI_MOVESETS = {
+
+  // ── Velvettia ─────────────────────────────────────────────────────
+  "velvettia": [
+    "1:drillrun",        "1:nightslash",      "1:smartstrike",
+    "1:slash",           "1:tackle",          "1:ember",
+    "1:quickfire",       "1:harden",          "1:rockthrow",
+    "1:sharpen",         "1:willowisp",       "1:powersplit",
+    "1:smackdown",       "1:flamecharge",     "1:ancientpower",
+    "1:rockpolish",      "1:swordsdance",     "1:rockslide",
+    "1:flamethrower",    "1:powergem",        "1:guardpress",
+    "1:stealthrock",     "1:spikes",
+    "50:lashout",
+    "55:crystalspear",
+    "60:temperflare",
+    "tm:aerialace",      "tm:afteryou",       "tm:allyswitch",
+    "tm:ancientpower",   "tm:bodypress",      "tm:bodyslam",
+    "tm:burningjealousy","tm:calmmind",       "tm:charm",
+    "tm:covet",          "tm:cut",            "tm:dazzlinggleam",
+    "tm:drillrun",       "tm:earthpower",     "tm:endeavor",
+    "tm:endure",         "tm:explosion",      "tm:facade",
+    "tm:fireblast",      "tm:firespin",       "tm:flamecharge",
+    "tm:flamethrower",   "tm:flash",          "tm:flashcannon",
+    "tm:furycutter",     "tm:futuresight",    "tm:gigaimpact",
+    "tm:gravity",        "tm:guardpress",     "tm:guardswap",
+    "tm:gyroball",       "tm:heatwave",       "tm:hyperbeam",
+    "tm:irondefense",    "tm:ironhead",       "tm:lashout",
+    "tm:lightscreen",    "tm:magiccoat",      "tm:magnetrise",
+    "tm:meteorbeam",     "tm:naturepower",    "tm:poisonjab",
+    "tm:powergem",       "tm:protect",        "tm:psychocut",
+    "tm:psychup",        "tm:quickfire",      "tm:raindance",
+    "tm:reflect",        "tm:rest",           "tm:rockblast",
+    "tm:rockpolish",     "tm:rockslide",      "tm:rocktomb",
+    "tm:safeguard",      "tm:sandstorm",      "tm:sandtomb",
+    "tm:skillswap",      "tm:sleeptalk",      "tm:smackdown",
+    "tm:smartstrike",    "tm:spikes",         "tm:starshower",
+    "tm:stealthrock",    "tm:stompingtantrum","tm:substitute",
+    "tm:sunnyday",       "tm:swordsdance",    "tm:takedown",
+    "tm:telekinesis",    "tm:temperflare",    "tm:terablast",
+    "tm:terrainpulse",   "tm:trickroom",      "tm:wonderroom",
+    "tutor:afteryou",    "tutor:allyswitch",  "tutor:ancientpower",
+    "tutor:burningjealousy","tutor:calmmind", "tutor:covet",
+    "tutor:dazzlinggleam","tutor:drillrun",   "tutor:earthpower",
+    "tutor:endeavor",    "tutor:flashcannon", "tutor:furycutter",
+    "tutor:gigaimpact",  "tutor:gravity",     "tutor:heatwave",
+    "tutor:hyperbeam",   "tutor:irondefense", "tutor:ironhead",
+    "tutor:magiccoat",   "tutor:magnetrise",  "tutor:meteorbeam",
+    "tutor:rest",        "tutor:rockslide",   "tutor:skillswap",
+    "tutor:sleeptalk",   "tutor:spikes",      "tutor:stealthrock",
+    "tutor:stompingtantrum","tutor:telekinesis","tutor:terrainpulse",
+    "tutor:trick",       "tutor:wonderroom"
+  ],
+
+  // ── Seedlin ───────────────────────────────────────────────────────
+  "seedlin": [
+    "1:withdraw",        "1:astonish",        "1:leechseed",
+    "1:worryseed",
+    "egg:defensecurl",   "egg:recycle",       "egg:rollout",
+    "egg:suckerpunch",   "egg:appleacid",     "egg:gravapple",
+    "egg:ingrain",
+    "tm:leechseed",      "tm:pounce",         "tm:recycle",
+    "tm:rollout",        "tm:suckerpunch",    "tm:terablast",
+    "tutor:recycle",     "tutor:rollout",     "tutor:suckerpunch",
+    "tutor:worryseed"
+  ],
+
+  // ── Hattertainer ──────────────────────────────────────────────────
+  "hattertainer": [
+    "1:flamethrower",    "1:brutalswing",     "1:ember",
+    "1:playnice",        "1:roleplay",        "1:magictrick",
+    "1:encore",          "1:disarmingvoice",  "1:willowisp",
+    "15:acrobatics",
+    "20:flamewheel",
+    "25:trick",
+    "30:dazzlinggleam",
+    "37:lashout",
+    "46:firelash",
+    "55:magicroom",
+    "64:playrough",
+    "70:conjuringfire",
+    "egg:afteryou",      "egg:aromaticmist",  "egg:mysticalfire",
+    "egg:nuzzle",        "egg:quash",
+    "tm:acrobatics",     "tm:afteryou",       "tm:agility",
+    "tm:batonpass",      "tm:brutalswing",    "tm:calmmind",
+    "tm:charm",          "tm:darkpulse",      "tm:dazzlinggleam",
+    "tm:disarmingvoice", "tm:drainingkiss",   "tm:drainpunch",
+    "tm:endure",         "tm:encore",         "tm:facade",
+    "tm:futuresight",    "tm:flamethrower",   "tm:flareblitz",
+    "tm:flamecharge",    "tm:firepunch",      "tm:gigaimpact",
+    "tm:gravity",        "tm:guardswap",      "tm:helpinghand",
+    "tm:hyperbeam",      "tm:icepunch",       "tm:lashout",
+    "tm:lightscreen",    "tm:nastyplot",      "tm:magicalleaf",
+    "tm:magicroom",      "tm:metronome",      "tm:mistyexplosion",
+    "tm:mistyterrain",   "tm:mysticalfire",   "tm:painsplit",
+    "tm:playrough",      "tm:powerswap",      "tm:powerwhip",
+    "tm:protect",        "tm:psychocut",      "tm:psychup",
+    "tm:quash",          "tm:reflect",        "tm:rest",
+    "tm:safeguard",      "tm:shadowball",     "tm:skillswap",
+    "tm:sleeptalk",      "tm:stompingtantrum","tm:substitute",
+    "tm:swift",          "tm:swordsdance",    "tm:terablast",
+    "tm:thunderpunch",   "tm:thunderwave",    "tm:trick",
+    "tm:trickroom",      "tm:tripleaxel",     "tm:wonderroom",
+    "tm:willowisp",
+    "tutor:afteryou",    "tutor:darkpulse",   "tutor:dazzlinggleam",
+    "tutor:gigaimpact",  "tutor:helpinghand", "tutor:hyperbeam",
+    "tutor:magicalleaf", "tutor:magicroom",   "tutor:mistyexplosion",
+    "tutor:mysticalfire","tutor:painsplit",   "tutor:playrough",
+    "tutor:psychocut",   "tutor:rest",        "tutor:shadowball",
+    "tutor:stompingtantrum","tutor:skillswap","tutor:sleeptalk",
+    "tutor:swift",       "tutor:trick",       "tutor:wonderroom"
+  ],
+
+  // ── Goodra (Boglands) ─────────────────────────────────────────────
+  "goodra_boglands": [
+    "1:slickslime",      "1:slimeball",       "1:acid",
+    "1:bulldoze",        "1:toxic",           "1:acidspray",
+    "1:feint",           "1:tearfullook",     "1:dragonbreath",
+    "1:tackle",          "1:absorb",          "1:poisontail",
+    "1:bide",            "1:acidarmor",
+    "15:protect",
+    "20:flail",
+    "25:sludge",
+    "30:raindance",
+    "35:dragonpulse",
+    "43:curse",
+    "49:sludgebomb",     "49:bodyslam",
+    "58:muddywater",
+    "67:earthpower",
+    "70:dragonpress",
+    "egg:counter",       "egg:lifedew",
+    "tm:acidspray",      "tm:blizzard",       "tm:bodypress",
+    "tm:bodyslam",       "tm:breakingswipe",  "tm:bulldoze",
+    "tm:charm",          "tm:chillingwater",  "tm:curse",
+    "tm:dracometeor",    "tm:dragoncheer",    "tm:dragonclaw",
+    "tm:dragonpulse",    "tm:dragontail",     "tm:earthquake",
+    "tm:earthpower",     "tm:endure",         "tm:facade",
+    "tm:fireblast",      "tm:firepunch",      "tm:flamethrower",
+    "tm:flashcannon",    "tm:gigaimpact",     "tm:heavyslam",
+    "tm:hydropump",      "tm:hyperbeam",      "tm:icebeam",
+    "tm:ironhead",       "tm:irontail",       "tm:knockoff",
+    "tm:lashout",        "tm:muddywater",     "tm:mudshot",
+    "tm:outrage",        "tm:protect",        "tm:raindance",
+    "tm:rest",           "tm:rockslide",      "tm:rocksmash",
+    "tm:rocktomb",       "tm:sandstorm",      "tm:scaryface",
+    "tm:skittersmack",   "tm:sleeptalk",      "tm:sludgebomb",
+    "tm:sludgewave",     "tm:stompingtantrum","tm:substitute",
+    "tm:sunnyday",       "tm:surf",           "tm:takedown",
+    "tm:terablast",      "tm:thunder",        "tm:thunderbolt",
+    "tm:thunderpunch",   "tm:waterpulse",     "tm:weatherball",
+    "tutor:bulldoze",    "tutor:dracometeor", "tutor:dragonpulse",
+    "tutor:firepunch",   "tutor:flamethrower","tutor:flashcannon",
+    "tutor:gigaimpact",  "tutor:hyperbeam",   "tutor:icebeam",
+    "tutor:ironhead",    "tutor:irontail",    "tutor:knockoff",
+    "tutor:lashout",     "tutor:outrage",     "tutor:rest",
+    "tutor:rockslide",   "tutor:rocksmash",   "tutor:skittersmack",
+    "tutor:sleeptalk",   "tutor:sludgebomb",  "tutor:stompingtantrum",
+    "tutor:thunderbolt", "tutor:thunderpunch","tutor:waterpulse"
+  ],
+
+  // ── Goodra (Wetlands) ─────────────────────────────────────────────
+  "goodra_wetlands": [
+    "1:bubble",          "1:aquatail",        "1:raindance",
+    "1:aquaring",        "1:feint",           "1:tearfullook",
+    "1:dragonbreath",    "1:tackle",          "1:absorb",
+    "1:watergun",        "1:bide",            "1:haze",
+    "1:aquajet",
+    "15:protect",
+    "20:flail",
+    "25:waterpulse",
+    "30:raindance",      "30:soakup",
+    "35:dragonpulse",
+    "43:curse",
+    "49:waterfall",      "49:bodyslam",
+    "51:brine",          "51:waterspout",
+    "53:flipturn",
+    "58:surf",
+    "67:dragonhammer",
+    "70:dragonpress",
+    "egg:counter",       "egg:lifedew",       "egg:dragondance",
+    "tm:acidspray",      "tm:blizzard",       "tm:bodypress",
+    "tm:bodyslam",       "tm:breakingswipe",  "tm:bulldoze",
+    "tm:charm",          "tm:chillingwater",  "tm:curse",
+    "tm:dracometeor",    "tm:dragoncheer",    "tm:dragonclaw",
+    "tm:dragonpulse",    "tm:dragontail",     "tm:dragondance",
+    "tm:earthquake",     "tm:endure",         "tm:facade",
+    "tm:fireblast",      "tm:firepunch",      "tm:flamethrower",
+    "tm:flashcannon",    "tm:gigaimpact",     "tm:hydropump",
+    "tm:hyperbeam",      "tm:icebeam",        "tm:ironhead",
+    "tm:irontail",       "tm:knockoff",       "tm:lashout",
+    "tm:muddywater",     "tm:mudshot",        "tm:outrage",
+    "tm:protect",        "tm:raindance",      "tm:rest",
+    "tm:rockslide",      "tm:rocksmash",      "tm:rocktomb",
+    "tm:sandstorm",      "tm:scaryface",      "tm:skittersmack",
+    "tm:sleeptalk",      "tm:sludgebomb",     "tm:sludgewave",
+    "tm:stompingtantrum","tm:substitute",     "tm:sunnyday",
+    "tm:superpower",     "tm:surf",           "tm:takedown",
+    "tm:terablast",      "tm:thunder",        "tm:thunderbolt",
+    "tm:thunderpunch",   "tm:waterpulse",     "tm:waterfall",
+    "tm:dive",           "tm:weatherball",
+    "tutor:bulldoze",    "tutor:dracometeor", "tutor:dragonpulse",
+    "tutor:firepunch",   "tutor:flamethrower","tutor:flashcannon",
+    "tutor:gigaimpact",  "tutor:hyperbeam",   "tutor:icebeam",
+    "tutor:ironhead",    "tutor:irontail",    "tutor:knockoff",
+    "tutor:lashout",     "tutor:outrage",     "tutor:rest",
+    "tutor:rockslide",   "tutor:rocksmash",   "tutor:skittersmack",
+    "tutor:sleeptalk",   "tutor:sludgebomb",  "tutor:stompingtantrum",
+    "tutor:superpower",  "tutor:thunderbolt", "tutor:thunderpunch",
+    "tutor:waterpulse"
+  ],
+
+  // ── Golisopede ────────────────────────────────────────────────────
+  "golisopede": [
+    "1:firstimpression", "1:dig",             "1:strugglebug",
+    "1:irontail",        "1:camouflage",      "1:sandattack",
+    "1:shelter",         "1:mudsport",        "1:spite",
+    "1:infestation",     "1:sandshift",
+    "4:rocksmash",
+    "8:furycutter",      "8:metalclaw",
+    "12:mudshot",
+    "16:bugbite",
+    "20:bulldoze",
+    "22:steamroller",    "22:steelcutter",
+    "24:suckerpunch",
+    "28:pitfall",
+    "32:ironhead",
+    "34:armorpress",
+    "36:pinmissile",
+    "40:swordsdance",
+    "44:earthquake",
+    "48:fissure",
+    "52:steelroller",
+    "60:attackorder",
+    "egg:uturn",         "egg:harden",        "egg:metalclaw",
+    "egg:rollout",       "egg:wideguard",
+    "tm:armorpress",     "tm:assurance",      "tm:brickbreak",
+    "tm:bugbite",        "tm:bugbuzz",        "tm:bulkup",
+    "tm:bulldoze",       "tm:closecombat",    "tm:drillrun",
+    "tm:dualchop",       "tm:earthpower",     "tm:earthquake",
+    "tm:endeavor",       "tm:endure",         "tm:facade",
+    "tm:falseswipe",     "tm:fissure",        "tm:fling",
+    "tm:focusblast",     "tm:furycutter",     "tm:gigaimpact",
+    "tm:guardpress",     "tm:gyroball",       "tm:hardpress",
+    "tm:heavyslam",      "tm:hyperbeam",      "tm:irondefense",
+    "tm:ironhead",       "tm:irontail",       "tm:knockoff",
+    "tm:laserfocus",     "tm:leechlife",      "tm:liquidation",
+    "tm:metalclaw",      "tm:metalsound",     "tm:mudshot",
+    "tm:painsplit",      "tm:payback",        "tm:pinmissile",
+    "tm:poisonjab",      "tm:protect",        "tm:psychup",
+    "tm:raindance",      "tm:razorshell",     "tm:rest",
+    "tm:rockslide",      "tm:rocksmash",      "tm:rocktomb",
+    "tm:rollout",        "tm:sandtomb",       "tm:screech",
+    "tm:shadowclaw",     "tm:skittersmack",   "tm:sleeptalk",
+    "tm:sludgebomb",     "tm:sludgewave",     "tm:snarl",
+    "tm:spikes",         "tm:spite",          "tm:steelcutter",
+    "tm:steelroller",    "tm:strugglebug",    "tm:substitute",
+    "tm:suckerpunch",    "tm:swift",          "tm:swordsdance",
+    "tm:taunt",          "tm:terablast",      "tm:throatchop",
+    "tm:uturn",          "tm:venoshock",      "tm:xscissor",
+    "tutor:aerialace",   "tutor:bugbite",     "tutor:bulkup",
+    "tutor:drillrun",    "tutor:dualchop",    "tutor:endeavor",
+    "tutor:falseswipe",  "tutor:furycutter",  "tutor:gigaimpact",
+    "tutor:hyperbeam",   "tutor:irondefense", "tutor:ironhead",
+    "tutor:knockoff",    "tutor:laserfocus",  "tutor:leechlife",
+    "tutor:painsplit",   "tutor:poisonjab",   "tutor:rest",
+    "tutor:rockslide",   "tutor:rocksmash",   "tutor:rollout",
+    "tutor:shadowclaw",  "tutor:skittersmack","tutor:sleeptalk",
+    "tutor:sludgebomb",  "tutor:snarl",       "tutor:spikes",
+    "tutor:spite",       "tutor:suckerpunch", "tutor:swift",
+    "tutor:throatchop",  "tutor:xscissor"
+  ],
+
+  // ── Ralts Midnight ───────────────────────────────────────────────
+  "ralts_midnight": [
+    "1:growl","1:luckychant","1:disarmingvoice","3:doubleteam","6:powertrip",
+    "9:hypnosis","12:drainingkiss","15:torment","18:bite","21:lifedew",
+    "24:charm","27:calmmind","30:darkpulse","33:healpulse","36:dreameater",
+    "37:leechlife","39:gigadrain","42:dazzlinggleam","42:nightlight",
+    "egg:confuseray","egg:destinybond","egg:disable","egg:grudge","egg:knockoff",
+    "egg:meanlook","egg:memento","egg:mysticalfire","egg:shadowsneak",
+    "egg:synchronoise","egg:suckerpunch","egg:spiritdrain",
+    "tm:alluringvoice","tm:allyswitch","tm:bodyslam","tm:calmmind",
+    "tm:chargebeam","tm:charm","tm:confuseray","tm:dazzlinggleam",
+    "tm:disarmingvoice","tm:doubleteam","tm:drainingkiss","tm:dreameater",
+    "tm:echoedvoice","tm:encore","tm:endure","tm:expandingforce","tm:facade",
+    "tm:firepunch","tm:flash","tm:fling","tm:futuresight","tm:grassknot",
+    "tm:headbutt","tm:helpinghand","tm:hypervoice","tm:icepunch","tm:icywind",
+    "tm:imprison","tm:knockoff","tm:lightscreen","tm:magicalleaf","tm:magiccoat",
+    "tm:magicroom","tm:megakick","tm:megapunch","tm:metronome","tm:mistyterrain",
+    "tm:mysticalfire","tm:nightlight","tm:painsplit","tm:protect","tm:psybeam",
+    "tm:psychic","tm:psychicterrain","tm:psychup","tm:psyshock","tm:raindance",
+    "tm:recycle","tm:reflect","tm:rest","tm:safeguard","tm:shadowball",
+    "tm:shadowstars","tm:shockwave","tm:signalbeam","tm:skillswap","tm:sleeptalk",
+    "tm:snatch","tm:spiritdrain","tm:starshower","tm:storedpower","tm:substitute",
+    "tm:sunnyday","tm:swift","tm:taunt","tm:telekinesis","tm:terablast","tm:thief",
+    "tm:thunderbolt","tm:thunderpunch","tm:thunderwave","tm:torment","tm:trick",
+    "tm:trickroom","tm:willowisp","tm:wonderroom","tm:zenheadbutt",
+    "tutor:allyswitch","tutor:calmmind","tutor:chargebeam","tutor:dazzlinggleam",
+    "tutor:expandingforce","tutor:firepunch","tutor:helpinghand","tutor:hypervoice",
+    "tutor:icepunch","tutor:icywind","tutor:knockoff","tutor:magicalleaf",
+    "tutor:magiccoat","tutor:magicroom","tutor:mysticalfire","tutor:painsplit",
+    "tutor:psychic","tutor:recycle","tutor:rest","tutor:shadowball","tutor:shockwave",
+    "tutor:signalbeam","tutor:skillswap","tutor:sleeptalk","tutor:snatch",
+    "tutor:swift","tutor:telekinesis","tutor:thunderbolt","tutor:thunderpunch",
+    "tutor:trick","tutor:wonderroom","tutor:zenheadbutt"
+  ],
+
+  // ── Kirlia Midnight ──────────────────────────────────────────────
+  "kirlia_midnight": [
+    "1:growl","1:powertrip","1:doubleteam","1:luckychant","1:disarmingvoice",
+    "9:hypnosis","12:drainingkiss","15:torment","18:bite","23:lifedew",
+    "28:charm","33:calmmind","37:leechlife","38:darkpulse","42:dazzlinggleam",
+    "42:nightlight","43:healpulse","48:dreameater","53:gigadrain",
+    "egg:confuseray","egg:destinybond","egg:disable","egg:grudge","egg:knockoff",
+    "egg:meanlook","egg:memento","egg:mysticalfire","egg:shadowsneak",
+    "egg:synchronoise","egg:suckerpunch","egg:spiritdrain",
+    "tm:alluringvoice","tm:allyswitch","tm:bodyslam","tm:calmmind",
+    "tm:chargebeam","tm:charm","tm:confuseray","tm:dazzlinggleam",
+    "tm:disarmingvoice","tm:doubleteam","tm:drainingkiss","tm:dreameater",
+    "tm:echoedvoice","tm:encore","tm:endure","tm:expandingforce","tm:facade",
+    "tm:firepunch","tm:flash","tm:fling","tm:futuresight","tm:grassknot",
+    "tm:headbutt","tm:helpinghand","tm:hyperbeam","tm:hypervoice","tm:icepunch",
+    "tm:icywind","tm:imprison","tm:knockoff","tm:lightscreen","tm:magicalleaf",
+    "tm:magiccoat","tm:magicroom","tm:megakick","tm:megapunch","tm:metronome",
+    "tm:mistyterrain","tm:mysticalfire","tm:nightlight","tm:painsplit","tm:protect",
+    "tm:psybeam","tm:psychic","tm:psychicterrain","tm:psychup","tm:psyshock",
+    "tm:raindance","tm:recycle","tm:reflect","tm:rest","tm:safeguard",
+    "tm:shadowball","tm:shadowstars","tm:shockwave","tm:signalbeam","tm:skillswap",
+    "tm:sleeptalk","tm:snatch","tm:spiritdrain","tm:starshower","tm:storedpower",
+    "tm:substitute","tm:sunnyday","tm:swift","tm:taunt","tm:telekinesis",
+    "tm:terablast","tm:thief","tm:thunderbolt","tm:thunderpunch","tm:thunderwave",
+    "tm:torment","tm:trick","tm:trickroom","tm:tripleaxel","tm:willowisp",
+    "tm:wonderroom","tm:zenheadbutt",
+    "tutor:allyswitch","tutor:calmmind","tutor:chargebeam","tutor:dazzlinggleam",
+    "tutor:expandingforce","tutor:firepunch","tutor:helpinghand","tutor:hyperbeam",
+    "tutor:hypervoice","tutor:icepunch","tutor:icywind","tutor:knockoff",
+    "tutor:magicalleaf","tutor:magiccoat","tutor:magicroom","tutor:mysticalfire",
+    "tutor:painsplit","tutor:psychic","tutor:recycle","tutor:rest","tutor:shadowball",
+    "tutor:shockwave","tutor:signalbeam","tutor:skillswap","tutor:sleeptalk",
+    "tutor:snatch","tutor:swift","tutor:telekinesis","tutor:thunderbolt",
+    "tutor:thunderpunch","tutor:trick","tutor:tripleaxel","tutor:wonderroom",
+    "tutor:zenheadbutt"
+  ],
+
+  // ── Gardevoir Midnight ───────────────────────────────────────────
+  "gardevoir_midnight": [
+    "1:healingwish","1:growl","1:powertrip","1:doubleteam","1:healpulse",
+    "1:mistyterrain","1:disarmingvoice","1:dazzlinggleam","1:nightlight",
+    "1:captivate","1:mysticalfire","1:charm","1:luckychant",
+    "9:hypnosis","12:drainingkiss","15:torment","18:bite","23:lifedew",
+    "28:wish","35:calmmind","37:leechlife","39:gigadrain","42:darkpulse",
+    "49:moonblast","56:dreameater","63:vitaldrain",
+    "egg:confuseray","egg:destinybond","egg:disable","egg:grudge","egg:knockoff",
+    "egg:meanlook","egg:memento","egg:mysticalfire","egg:shadowsneak",
+    "egg:synchronoise","egg:suckerpunch","egg:spiritdrain",
+    "tm:alluringvoice","tm:allyswitch","tm:aurasphere","tm:bodyslam","tm:calmmind",
+    "tm:captivate","tm:chargebeam","tm:charm","tm:confuseray","tm:dazzlinggleam",
+    "tm:disarmingvoice","tm:doubleteam","tm:drainingkiss","tm:dreameater",
+    "tm:echoedvoice","tm:encore","tm:endure","tm:energyball","tm:expandingforce",
+    "tm:facade","tm:firepunch","tm:flash","tm:fling","tm:focusblast",
+    "tm:futuresight","tm:gigadrain","tm:gigaimpact","tm:grassknot","tm:gravity",
+    "tm:guardswap","tm:headbutt","tm:healbell","tm:helpinghand","tm:hyperbeam",
+    "tm:hypervoice","tm:icepunch","tm:icywind","tm:imprison","tm:knockoff",
+    "tm:laserfocus","tm:lightscreen","tm:magicalleaf","tm:magiccoat","tm:magicroom",
+    "tm:megakick","tm:megapunch","tm:metronome","tm:mistyexplosion","tm:mistyterrain",
+    "tm:mysticalfire","tm:nightlight","tm:nightshade","tm:painsplit","tm:potshot",
+    "tm:powerswap","tm:protect","tm:psybeam","tm:psychic","tm:psychicnoise",
+    "tm:psychicsnap","tm:psychicterrain","tm:psychup","tm:psyshock","tm:raindance",
+    "tm:recycle","tm:reflect","tm:rest","tm:safeguard","tm:shadowball",
+    "tm:shadowstars","tm:shockwave","tm:signalbeam","tm:skillswap","tm:sleeptalk",
+    "tm:snatch","tm:spiritdrain","tm:starshower","tm:storedpower","tm:substitute",
+    "tm:sunnyday","tm:swift","tm:taunt","tm:telekinesis","tm:terablast","tm:thief",
+    "tm:thunderbolt","tm:thunderpunch","tm:thunderwave","tm:torment","tm:trick",
+    "tm:trickroom","tm:tripleaxel","tm:vacuumwave","tm:willowisp","tm:wonderroom",
+    "tm:zenheadbutt",
+    "tutor:allyswitch","tutor:calmmind","tutor:chargebeam","tutor:dazzlinggleam",
+    "tutor:energyball","tutor:expandingforce","tutor:firepunch","tutor:gigaimpact",
+    "tutor:gravity","tutor:healbell","tutor:helpinghand","tutor:hyperbeam",
+    "tutor:hypervoice","tutor:icepunch","tutor:icywind","tutor:knockoff",
+    "tutor:laserfocus","tutor:magicalleaf","tutor:magiccoat","tutor:magicroom",
+    "tutor:mistyexplosion","tutor:mysticalfire","tutor:painsplit","tutor:psychic",
+    "tutor:recycle","tutor:rest","tutor:shadowball","tutor:shockwave",
+    "tutor:signalbeam","tutor:skillswap","tutor:sleeptalk","tutor:snatch",
+    "tutor:swift","tutor:telekinesis","tutor:thunderbolt","tutor:thunderpunch",
+    "tutor:trick","tutor:tripleaxel","tutor:vacuumwave","tutor:wonderroom",
+    "tutor:zenheadbutt"
+  ],
+
+  // ── Añade aquí nuevos Fakémon ────────────────────────────────────
+  // Copia esta plantilla, reemplaza el slug y los movimientos:
+  //
+  // "nombre_slug": [
+  //   "1:movimiento",       // nivel 1
+  //   "15:movimiento",      // nivel 15
+  //   "tm:movimiento",      // TM
+  //   "tutor:movimiento",   // Tutor
+  //   "egg:movimiento",     // Egg Move
+  // ],
+
+};
+
+// ── Auto-carga desde movesets/index.json ─────────────────────────────────────
+// Cuando agregues un nuevo .json en la carpeta movesets/, añade su slug
+// (sin extensión) al archivo movesets/index.json y se cargará automáticamente.
+// Ejemplo de movesets/index.json:
+//   ["ralts_midnight", "kirlia_midnight", "mi_nuevo_fakemon"]
+//
+(async function autoLoadMovesets(){
+  function getAppBasePath(){
+    const p = window.location.pathname || "/";
+    if(p.endsWith(".html") || p.endsWith(".htm")) return p.replace(/[^\/]+$/, "");
+    if(p.endsWith("/")) return p;
+    return p + "/";
+  }
+
+  const base = getAppBasePath();
+  const origin = window.location.origin || "";
+  const indexUrl = `${origin}${base}movesets/index.json`;
+
+  let slugs = [];
+  try {
+    const res = await fetch(indexUrl, { cache: "no-store" });
+    if(res.ok) slugs = await res.json();
+  } catch(e) { return; } // sin servidor (file://) no hace nada
+
+  for(const slug of slugs){
+    if(!slug || window.WIKI_MOVESETS[slug]) continue; // ya existe, saltar
+    try {
+      const res = await fetch(`${origin}${base}movesets/${slug}.json`, { cache: "no-store" });
+      if(!res.ok) continue;
+      const data = await res.json();
+      const moves = Array.isArray(data) ? data : (Array.isArray(data.moves) ? data.moves : null);
+      if(moves) window.WIKI_MOVESETS[slug] = moves;
+    } catch(e) {}
+  }
+})();

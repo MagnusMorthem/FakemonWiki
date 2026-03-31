@@ -1,0 +1,25 @@
+{
+  "moves": [
+    "1:withdraw",
+    "1:astonish",
+    "1:leechseed",
+    "1:worryseed",
+    "egg:defensecurl",
+    "egg:recycle",
+    "egg:rollout",
+    "egg:suckerpunch",
+    "egg:appleacid",
+    "egg:gravapple",
+    "egg:ingrain",
+    "tm:leechseed",
+    "tm:pounce",
+    "tm:recycle",
+    "tm:rollout",
+    "tm:suckerpunch",
+    "tm:terablast",
+    "tutor:recycle",
+    "tutor:rollout",
+    "tutor:suckerpunch",
+    "tutor:worryseed"
+  ]
+}
