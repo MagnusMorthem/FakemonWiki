@@ -159,7 +159,14 @@ nav{display:flex;gap:0.25rem;margin-left:auto}
 .evo-branch-arrow{color:var(--accent);font-size:1.2rem}
 .evo-branch-vertical{display:flex;flex-direction:column;align-items:center;gap:0.3rem}
 
-/* ── MOVES ACCORDION DYNAMIC ── */
+/* ── FORM STATS ── */
+.form-stats-block{margin-bottom:0.75rem}
+.form-stats-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem;padding-bottom:0.3rem;border-bottom:1px solid var(--border)}
+.form-stats-img{width:48px;height:48px;object-fit:contain;image-rendering:pixelated;background:var(--surface2);border-radius:6px}
+.form-stats-name{font-size:0.85rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px}
+.form-stats-divider{height:1px;background:var(--border);margin:0.75rem 0}
+
+
 .moves-accordion-container{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
 .moves-accordion-container.single-column{grid-template-columns:1fr}
 .moves-accordion-block{transition:all 0.3s ease}
@@ -403,7 +410,7 @@ function goBack(){lastDetail=null;const prev=navH.pop()||{tab:"fakemon"};documen
 function onSearch(val){srchQ=val.toLowerCase().trim();if(curTab==="fakemon"){renderGrid(WIKI_DATA.fakemon.filter(f=>f.name.toLowerCase().includes(srchQ)||f.types.some(t=>t.toLowerCase().includes(srchQ))||f.abilities.some(a=>a.toLowerCase().includes(srchQ))))}else if(curTab==="moves"){renderMovesC(WIKI_DATA.moves.filter(m=>m.name.toLowerCase().includes(srchQ)||m.type.toLowerCase().includes(srchQ)||m.category.toLowerCase().includes(srchQ)))}else if(curTab==="abilities"){renderAbC(WIKI_DATA.abilities.filter(a=>a.name.toLowerCase().includes(srchQ)||a.effect.toLowerCase().includes(srchQ)))}else if(curTab==="items"){renderItems(WIKI_DATA.items.filter(i=>i.name.toLowerCase().includes(srchQ)))}saveAppState();if(!applyingPopState)updateBrowserState("replace")}
 function buildTypeF(){const types=[...new Set(WIKI_DATA.fakemon.flatMap(f=>f.types))].sort();document.getElementById("type-filters").innerHTML=`<button class="fbtn active" id="tf-all" onclick="filterType('')">All</button>`+types.map(t=>`<button class="fbtn" id="tf-${t}" onclick="filterType('${t}')">${TI[t.toLowerCase()]||""} ${t}</button>`).join("")}
 function filterType(type){fakemonTypeFilter=type||"";document.querySelectorAll(".fbtn").forEach(b=>{b.classList.remove("active");b.style.background="";b.style.color=""});const btn=document.getElementById(type?`tf-${type}`:"tf-all");if(btn){btn.classList.add("active");if(type){btn.style.background=tc(type);btn.style.color="#111"}}renderGrid(type?WIKI_DATA.fakemon.filter(f=>f.types.some(t=>t.toLowerCase()===type.toLowerCase())):WIKI_DATA.fakemon);saveAppState()}
-function renderGrid(list){document.getElementById("grid-count").textContent=`(${list.length})`;const nr=document.getElementById("no-results");if(!list.length){document.getElementById("main-grid").innerHTML="";nr.style.display="block";return}nr.style.display="none";document.getElementById("main-grid").innerHTML=list.map(f=>{const idx=WIKI_DATA.fakemon.indexOf(f),img=f.gifs[0]||f.images[0]||"",isMega=f.name.toLowerCase().startsWith("mega ");return`<div class="card" onclick="openDetail('fakemon',${idx})">${img?`<img class="card-img" src="${img}" alt="${esc(f.name)}" loading="lazy">`:`<div class="card-img-ph">❓</div>`}<div class="card-name">${hl(f.name,srchQ)}${isMega?` <span class="mega-badge">Mega</span>`:""}</div><div class="type-pills">${f.types.map(t=>tpill(t)).join("")}</div></div>`}).join("")}
+function renderGrid(list){document.getElementById("grid-count").textContent=`(${list.length})`;const nr=document.getElementById("no-results");if(!list.length){document.getElementById("main-grid").innerHTML="";nr.style.display="block";return}nr.style.display="none";document.getElementById("main-grid").innerHTML=list.map(f=>{const idx=WIKI_DATA.fakemon.indexOf(f),img=f.images[0]||f.gifs[0]||"",isMega=f.name.toLowerCase().startsWith("mega ");return`<div class="card" onclick="openDetail('fakemon',${idx})">${img?`<img class="card-img" src="${img}" alt="${esc(f.name)}" loading="lazy">`:`<div class="card-img-ph">❓</div>`}<div class="card-name">${hl(f.name,srchQ)}${isMega?` <span class="mega-badge">Mega</span>`:""}</div><div class="type-pills">${f.types.map(t=>tpill(t)).join("")}</div></div>`}).join("")}
 function renderMoves(list){document.getElementById("list-title").innerHTML=`Moves <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;const types=[...new Set(WIKI_DATA.moves.map(m=>m.type).filter(Boolean))].sort();document.getElementById("list-type-filters").innerHTML=`<button class="fbtn active" onclick="filterMovesT('',this)">All</button>`+types.map(t=>`<button class="fbtn" onclick="filterMovesT('${t}',this)">${t}</button>`).join("");renderMovesC(list)}
 function applyMovesTypeFilter(type){
   moveTypeFilter=type||"";
@@ -1091,21 +1098,59 @@ function renderGifsSection(f){
 }
 
 function renderFKDetail(f){
-  // Obtener solo la imagen normal (no shiny) para la imagen principal
-  const normalImages = (f.images || []).filter(img => !img.toLowerCase().includes("shiny"));
-  const mainImg = normalImages[0] || (f.images || [])[0] || "";
-  const isMega=f.name.toLowerCase().startsWith("mega ");
-  
-  // Imagen principal sin miniaturas
-  const imgsHtml=mainImg
+  const isMega = f.name.toLowerCase().startsWith("mega ");
+
+  // ── Imagen principal: primera de images[], fallback a gifs[]
+  const mainImg = f.images[0] || f.gifs[0] || "";
+  const imgsHtml = mainImg
     ? `<img class="main-img" id="main-img" src="${mainImg}" alt="${esc(f.name)}">`
     : `<div class="main-img" style="display:flex;align-items:center;justify-content:center;font-size:4rem">❓</div>`;
 
-  const statsHtml=Object.keys(f.stats||{}).length
-    ? Object.entries(f.stats).filter(([k])=>k!=="TOTAL").map(([k,v])=>sbar(k,v)).join("") + (f.stats.TOTAL?`<div style="margin-top:0.5rem;font-weight:900;color:var(--accent)">Total: ${f.stats.TOTAL}</div>`:"")
-    : `<p style="color:var(--text-muted);font-style:italic">No stats.</p>`;
+  // ── Pokedex entry: string o array de párrafos
+  const entries = Array.isArray(f.pokedex_entry)
+    ? f.pokedex_entry
+    : (f.pokedex_entry ? [f.pokedex_entry] : []);
+  const pokedexHtml = entries.map(e => `<div class="poke-entry">${esc(e)}</div>`).join("");
 
-  const spCmds=(f.spawn_commands||[]).map(cmd=>`<div class="spawn-cmd">${esc(cmd)}<button class="copy-btn" onclick="copyT('${esc(cmd)}')">📋</button></div>`).join("");
+  // ── Stats base (puede ser objeto simple o nulo si hay form_data)
+  function renderStats(stats){
+    if(!stats || !Object.keys(stats).length)
+      return `<p style="color:var(--text-muted);font-style:italic">No stats.</p>`;
+    return Object.entries(stats).filter(([k])=>k!=="TOTAL").map(([k,v])=>sbar(k,v)).join("")
+      + (stats.TOTAL ? `<div style="margin-top:0.5rem;font-weight:900;color:var(--accent)">Total: ${stats.TOTAL}</div>` : "");
+  }
+
+  // ── Formas con imágenes/stats propios (campo form_data)
+  // Estructura esperada en data.js:
+  // "form_data": [
+  //   { "name": "Normal", "image": "images/...", "stats": { "HP":70, ... } },
+  //   { "name": "Sandy",  "image": "images/...", "stats": { "HP":80, ... } }
+  // ]
+  function renderFormStats(){
+    const forms = f.form_data;
+    if(!forms || !forms.length) return renderStats(f.stats);
+    return forms.map(form => `
+      <div class="form-stats-block">
+        <div class="form-stats-header">
+          ${form.image ? `<img class="form-stats-img" src="${esc(form.image)}" alt="${esc(form.name)}">` : ""}
+          <div class="form-stats-name">${esc(form.name)}</div>
+        </div>
+        ${renderStats(form.stats)}
+      </div>`).join('<div class="form-stats-divider"></div>');
+  }
+
+  const spCmds = (f.spawn_commands||[]).map(cmd =>
+    `<div class="spawn-cmd">${esc(cmd)}<button class="copy-btn" onclick="copyT('${esc(cmd)}')">📋</button></div>`
+  ).join("");
+
+  // ── Interactions: solo mostrar si hay contenido
+  const hasInteractions = f.interactions && f.interactions.length > 0;
+  const behaviorHtml = hasInteractions
+    ? `<div class="two-col">
+        <div class="info-block"><h3>Behavior</h3><ul>${liH(f.behavior)}</ul></div>
+        <div class="info-block"><h3>Pokémon Interactions</h3><ul>${liH(f.interactions)}</ul></div>
+       </div>`
+    : `<div class="info-block"><h3>Behavior</h3><ul>${liH(f.behavior)}</ul></div>`;
 
   document.getElementById("detail-content").innerHTML=`
     <div class="detail-header">
@@ -1113,7 +1158,7 @@ function renderFKDetail(f){
       <div class="detail-info">
         <div class="detail-name">${esc(f.name)}${isMega?' <span class="mega-badge">MEGA</span>':""}</div>
         <div class="type-pills" style="margin-bottom:0.5rem">${(f.types||[]).map(t=>tpill(t)).join("")}</div>
-        ${f.pokedex_entry?`<div class="poke-entry">${esc(f.pokedex_entry)}</div>`:""}
+        ${pokedexHtml}
         <div class="info-row"><span class="il">Height</span><span class="iv">${f.height||"—"}</span></div>
         <div class="info-row"><span class="il">Weight</span><span class="iv">${f.weight||"—"}</span></div>
         <div class="info-row"><span class="il">Gender</span><span class="iv">${(f.gender_ratio||[]).join(", ")||"—"}</span></div>
@@ -1135,7 +1180,7 @@ function renderFKDetail(f){
 
     <div id="tab-stats" class="tab-panel active">
       <div class="two-col">
-        <div class="info-block"><h3>Base Stats</h3>${statsHtml}</div>
+        <div class="info-block"><h3>Base Stats</h3>${renderFormStats()}</div>
         <div class="info-block"><h3>EXP & EVs</h3><ul>${liH(f.exp_evs)}</ul></div>
       </div>
       ${renderGifsSection(f)}
@@ -1161,10 +1206,7 @@ function renderFKDetail(f){
     </div>
 
     <div id="tab-behavior" class="tab-panel">
-      <div class="two-col">
-        <div class="info-block"><h3>Behavior</h3><ul>${liH(f.behavior)}</ul></div>
-        <div class="info-block"><h3>Pokémon Interactions</h3><ul>${liH(f.interactions)}</ul></div>
-      </div>
+      ${behaviorHtml}
     </div>
 
     <div id="tab-drops" class="tab-panel">
