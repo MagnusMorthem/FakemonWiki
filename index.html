@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fakemon Wiki | Laser's Fakemon wiki</title>
+<meta name="description" content="Wiki for the Laser's Fakemon Pack datapack/mod for Cobblemon. It shows all the added fakemon, moves, evolution chains, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--text-muted:#8b949e;--accent:#58a6ff;--accent2:#f78166}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+#header{background:linear-gradient(135deg,#0d1117 0%,#161b22 100%);border-bottom:2px solid var(--border);padding:0 1rem;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:1rem;height:60px}
+#logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--accent);white-space:nowrap;cursor:pointer;text-shadow:0 0 20px rgba(88,166,255,0.4)}
+#logo span{color:var(--accent2)}
+#search-wrap{flex:1;max-width:500px;position:relative}
+#search{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:0.4rem 1rem 0.4rem 2.4rem;font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+#search:focus{border-color:var(--accent)}
+#search-icon{position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.85rem;pointer-events:none}
+nav{display:flex;gap:0.25rem;margin-left:auto}
+.nav-btn{background:none;border:1px solid transparent;border-radius:6px;color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;padding:0.35rem 0.7rem;transition:all 0.15s;white-space:nowrap}
+.nav-btn:hover{color:var(--text);border-color:var(--border)}
+.nav-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(88,166,255,0.08)}
+#app{max-width:1200px;margin:0 auto;padding:1.5rem 1rem}
+#home-view,#list-view{display:none}
+#home-view.visible,#list-view.visible{display:block}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:var(--accent);margin-bottom:1rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:0.75rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;overflow:hidden;transition:transform 0.15s,border-color 0.15s,box-shadow 0.15s;display:flex;flex-direction:column;align-items:center;padding:0.75rem 0.5rem 0.6rem;gap:0.4rem}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 4px 20px rgba(88,166,255,0.15)}
+.card-img{width:96px;height:96px;object-fit:contain;image-rendering:pixelated}
+.card-img-ph{width:96px;height:96px;background:var(--surface2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.card-name{font-size:0.8rem;font-weight:800;text-align:center;color:var(--text);line-height:1.2}
+.type-pills{display:flex;gap:3px;flex-wrap:wrap;justify-content:center}
+.type-pill{font-size:0.6rem;font-weight:800;padding:1px 6px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
+.list-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.9rem;margin-bottom:0.4rem;transition:border-color 0.15s,background 0.15s}
+.list-card:hover{border-color:var(--accent);background:var(--surface2)}
+.list-card-img{width:40px;height:40px;object-fit:contain}
+.list-card-name{font-weight:800;flex:1}
+.lcs{font-size:0.8rem;font-weight:700;background:var(--surface2);padding:2px 6px;border-radius:4px}
+#detail-view{display:none}
+#detail-view.visible{display:block}
+.back-btn{background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;padding:0.35rem 0.9rem;margin-bottom:1.2rem;transition:all 0.15s;display:inline-flex;align-items:center;gap:0.4rem}
+.back-btn:hover{color:var(--text);border-color:var(--accent)}
+.detail-header{display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;flex-wrap:wrap}
+.detail-imgs{display:flex;flex-direction:column;align-items:center;gap:0.5rem;min-width:180px}
+.main-img{width:180px;height:180px;object-fit:contain;border-radius:8px;background:var(--surface2);image-rendering:pixelated}
+.thumb-row{display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:center}
+.thumb{width:56px;height:56px;object-fit:contain;border-radius:6px;cursor:pointer;border:2px solid transparent;background:var(--surface2);image-rendering:pixelated;transition:border-color 0.15s}
+.thumb.active{border-color:var(--accent)}
+.thumb:hover{border-color:var(--accent2)}
+.detail-info{flex:1;min-width:200px}
+.detail-name{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:1px;line-height:1;margin-bottom:0.5rem}
+.poke-entry{color:var(--text-muted);font-style:italic;font-size:0.9rem;margin:0.6rem 0;line-height:1.5;border-left:3px solid var(--accent);padding-left:0.7rem}
+.info-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.4rem 0;align-items:center}
+.il{color:var(--text-muted);font-size:0.82rem;font-weight:700;min-width:60px}
+.iv{font-size:0.85rem}
+.tabs{display:flex;gap:0.25rem;border-bottom:2px solid var(--border);margin-bottom:1rem;overflow-x:auto}
+.tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;padding:0.5rem 1rem;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.stat-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.35rem}
+.sl{width:70px;font-size:0.78rem;font-weight:700;color:var(--text-muted)}
+.sv{width:32px;font-size:0.82rem;font-weight:800;text-align:right}
+.sb-bg{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.sb{height:100%;border-radius:4px}
+.info-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;margin-bottom:0.75rem}
+.info-block h3{font-size:0.85rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.6rem}
+.info-block ul{list-style:none}
+.info-block li{padding:0.2rem 0;font-size:0.88rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04)}
+.info-block li:last-child{border:none}
+.info-block li::before{content:"▸ ";color:var(--accent)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start}
+
+/* ── MOVE DETAIL: info on left, image fills right ── */
+.move-header{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem}
+.move-header-top{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.mh-left{flex:1;display:flex;flex-direction:column;gap:0.4rem;min-width:0}
+
+/* Move image: full-width banner below the stats */
+.move-img-banner{width:100%;overflow:hidden;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center}
+.move-img-banner img{width:100%;height:auto;display:block;image-rendering:pixelated;max-height:120px;object-fit:contain}
+.move-img-ph{font-size:3rem;padding:1rem;text-align:center;color:var(--text-muted)}
+
+.move-stats{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.4rem}
+.ms{background:var(--surface2);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.8rem}
+.ms span{color:var(--text-muted);font-size:0.75rem;display:block}
+.ms strong{font-size:0.9rem}
+.cat-badge{font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.cat-Physical{background:#b8361e;color:#fff}
+.cat-Special{background:#2d6db5;color:#fff}
+.cat-Status{background:#555;color:#fff}
+
+/* ── ABILITY ── */
+.ability-header{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.ability-icon-big{width:64px;height:64px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.ab-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.15s;display:flex;align-items:center;gap:0.75rem}
+.ab-card:hover{border-color:var(--accent)}
+.ab-icon{font-size:1.4rem;flex-shrink:0;width:36px;text-align:center}
+.ab-text h3{font-size:0.95rem;font-weight:800}
+.ab-text p{font-size:0.82rem;color:var(--text-muted)}
+
+/* ── ITEMS ── */
+.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem}
+.item-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.8rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:0.4rem;transition:all 0.15s}
+.item-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.item-card img{width:60px;height:60px;object-fit:contain;image-rendering:pixelated}
+.item-card-name{font-size:0.78rem;font-weight:800;text-align:center}
+.item-img-ph{width:60px;height:60px;background:var(--surface2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+
+/* Item detail header */
+.item-detail-header{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;gap:1.2rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.item-detail-img{width:80px;height:80px;object-fit:contain;image-rendering:pixelated;flex-shrink:0}
+.item-detail-img-ph{width:80px;height:80px;background:var(--surface2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0}
+
+/* Recipe images */
+.recipe-grid{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start}
+.recipe-entry{}
+.recipe-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.3rem;font-weight:700}
+.recipe-img{max-width:100%;border-radius:6px;border:1px solid var(--border);display:block;image-rendering:pixelated}
+
+/* ── EVOLUTION ── */
+.evo-chain{display:flex;flex-wrap:wrap;gap:0.75rem;align-items:flex-start}
+.evo-arrow{color:var(--accent);font-size:1.2rem;flex-shrink:0;align-self:center}
+.evo-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.8rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;cursor:pointer;transition:all 0.15s;min-width:90px;text-align:center}
+.evo-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.evo-card.nolink{cursor:default}
+.evo-card.nolink:hover{border-color:var(--border);transform:none}
+.evo-card img{width:64px;height:64px;object-fit:contain;image-rendering:pixelated}
+.evo-card-ph{width:64px;height:64px;background:var(--surface);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.evo-name{font-size:0.75rem;font-weight:800;color:var(--accent);line-height:1.2}
+.evo-cond{font-size:0.65rem;color:var(--text-muted);line-height:1.3;max-width:110px}
+
+/* ── ENHANCED EVOLUTION CHAIN ── */
+.evo-chain-visual{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin:1rem 0}
+.evo-pokemon-card{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:1rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;cursor:pointer;transition:all 0.2s;min-width:100px;text-align:center;position:relative}
+.evo-pokemon-card.current{border-color:var(--accent);box-shadow:0 0 20px rgba(88,166,255,0.3)}
+.evo-pokemon-card:hover{border-color:var(--accent2);transform:translateY(-3px)}
+.evo-pokemon-card img{width:80px;height:80px;object-fit:contain;image-rendering:pixelated}
+.evo-pokemon-name{font-size:0.85rem;font-weight:800;color:var(--text);line-height:1.2}
+.evo-pokemon-card.current .evo-pokemon-name{color:var(--accent)}
+.evo-arrow-container{display:flex;flex-direction:column;align-items:center;gap:0.3rem}
+.evo-arrow-icon{color:var(--accent);font-size:1.5rem}
+.evo-item-container{display:flex;flex-direction:column;align-items:center;gap:0.2rem;cursor:pointer;transition:all 0.2s}
+.evo-item-container:hover{transform:scale(1.1)}
+.evo-item-img{width:32px;height:32px;object-fit:contain;image-rendering:pixelated;border:1px solid var(--border);border-radius:4px;background:var(--surface2)}
+.evo-item-name{font-size:0.6rem;color:var(--text-muted);text-align:center;max-width:60px;line-height:1.1}
+.evo-level-text{font-size:0.7rem;color:var(--text-muted);font-weight:600;background:var(--surface2);padding:2px 8px;border-radius:12px}
+
+/* ── BRANCHING EVOLUTIONS ── */
+.evo-branch-container{display:flex;flex-direction:column;align-items:center;gap:0.5rem}
+.evo-branch-horizontal{display:flex;align-items:center;gap:1rem}
+.evo-branch-top{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.5rem}
+.evo-branch-bottom{display:flex;align-items:center;gap:0.8rem;margin-top:0.5rem}
+.evo-branch-arrow{color:var(--accent);font-size:1.2rem}
+.evo-branch-vertical{display:flex;flex-direction:column;align-items:center;gap:0.3rem}
+
+/* ── FORM STATS ── */
+.form-stats-block{margin-bottom:0.75rem}
+.form-stats-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem;padding-bottom:0.3rem;border-bottom:1px solid var(--border)}
+.form-stats-img{width:48px;height:48px;object-fit:contain;image-rendering:pixelated;background:var(--surface2);border-radius:6px}
+.form-stats-name{font-size:0.85rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px}
+.form-stats-divider{height:1px;background:var(--border);margin:0.75rem 0}
+
+
+.moves-accordion-container{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.moves-accordion-container.single-column{grid-template-columns:1fr}
+.moves-accordion-block{transition:all 0.3s ease}
+.moves-accordion-block.collapsed{margin-bottom:0}
+.moves-accordion-content{transition:max-height 0.3s ease,opacity 0.3s ease,margin 0.3s ease;overflow:hidden}
+.moves-accordion-content.hidden{max-height:0;opacity:0;margin:0}
+.moves-accordion-content:not(.hidden){max-height:2000px;opacity:1}
+
+/* ── GIFS SECTION ── */
+.gifs-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.75rem}
+.gifs-section h3{font-size:0.85rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.8rem}
+.gifs-container{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.gif-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:0.8rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;min-width:140px;text-align:center}
+.gif-card img{width:120px;height:120px;object-fit:contain;image-rendering:pixelated;border-radius:8px;background:var(--surface)}
+.gif-label{font-size:0.75rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.5px}
+.gif-label.normal{color:var(--accent)}
+.gif-label.shiny{color:var(--accent2)}
+
+/* ── DISTRIBUTION ── */
+.dist-list{display:flex;flex-wrap:wrap;gap:0.3rem}
+.dist-tag{background:var(--surface2);border:1px solid var(--border);border-radius:4px;font-size:0.75rem;padding:2px 7px;cursor:pointer;transition:border-color 0.1s}
+.dist-tag:hover{border-color:var(--accent);color:var(--accent)}
+.dist-tag.nolink{cursor:default}
+.dist-tag.nolink:hover{border-color:var(--border);color:var(--text)}
+
+/* ── FILTERS ── */
+.filter-bar{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.fbtn{background:var(--surface);border:1px solid var(--border);border-radius:20px;color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.72rem;font-weight:800;padding:3px 10px;transition:all 0.15s}
+.fbtn:hover{border-color:var(--accent);color:var(--text)}
+.fbtn.active{color:#000;border-color:transparent}
+.type-filters{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.mega-badge{background:linear-gradient(90deg,#f78166,#ffa657);color:#000;font-size:0.65rem;font-weight:900;padding:1px 6px;border-radius:4px;text-transform:uppercase}
+.spawn-cmd{background:#161b22;border:1px solid #30363d;border-radius:6px;font-family:'Courier New',monospace;font-size:0.82rem;padding:0.4rem 0.7rem;margin:0.2rem 0;color:#7ee787;display:flex;align-items:center;justify-content:space-between}
+.copy-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:0.75rem;padding:2px 5px}
+.copy-btn:hover{color:var(--accent)}
+.no-results{text-align:center;padding:2rem;color:var(--text-muted);font-style:italic}
+mark{background:rgba(247,129,102,0.25);color:inherit;border-radius:2px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media(max-width:600px){
+  #header{flex-wrap:wrap;height:auto;padding:0.5rem;gap:0.5rem}
+  #logo{font-size:1.4rem}
+  nav{gap:0.15rem}
+  .nav-btn{font-size:0.72rem;padding:0.25rem 0.4rem}
+  #search-wrap{order:3;max-width:100%;width:100%}
+  .detail-header{flex-direction:column;align-items:center}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .two-col{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="header">
+  <div id="logo" onclick="showHome()">LASER'S <span>FAKEMON</span> WIKI</div>
+  <div id="search-wrap">
+    <span id="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="Search Fakemon, Moves, Abilities…" oninput="onSearch(this.value)">
+  </div>
+  <nav>
+    <button class="nav-btn active" id="nav-fakemon" onclick="switchTab('fakemon')">Fakémon</button>
+    <button class="nav-btn" id="nav-moves" onclick="switchTab('moves')">Moves</button>
+    <button class="nav-btn" id="nav-abilities" onclick="switchTab('abilities')">Abilities</button>
+    <button class="nav-btn" id="nav-items" onclick="switchTab('items')">Items</button>
+  </nav>
+</div>
+<div id="app">
+  <div id="home-view" class="visible">
+    <div id="type-filters" class="type-filters"></div>
+    <div class="section-title">All Fakémon <span id="grid-count" style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)"></span></div>
+    <div id="main-grid" class="grid"></div>
+    <div id="no-results" class="no-results" style="display:none">No results found.</div>
+  </div>
+  <div id="list-view">
+    <div id="list-type-filters" class="filter-bar"></div>
+    <div class="section-title" id="list-title"></div>
+    <div id="list-content"></div>
+  </div>
+  <div id="detail-view">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div id="detail-content"></div>
+  </div>
+</div>
+<script src="data.js"></script>
+<script src="movesets.js"></script>
+<script>
+// Constantes de presentación — definidas en data.js como WIKI_CONSTANTS
+const TC    = WIKI_CONSTANTS.typeColors;
+const TI    = WIKI_CONSTANTS.typeIcons;
+const SC    = WIKI_CONSTANTS.statColors;
+const AI    = WIKI_CONSTANTS.abilityIcons;
+const LIGHT = new Set(WIKI_CONSTANTS.lightTypes);
+function tc(t){return TC[t?.toLowerCase()]||"#888"}
+function tpill(t){if(!t)return"";const c=tc(t),f=LIGHT.has(t.toLowerCase())?"#111":"#fff";return`<span class="type-pill" style="background:${c};color:${f}">${t}</span>`}
+function sbar(k,v){const p=Math.min(100,Math.round(v/255*100)),c=SC[k]||"#58a6ff";return`<div class="stat-row"><div class="sl">${k}</div><div class="sv">${v}</div><div class="sb-bg"><div class="sb" style="width:${p}%;background:${c}"></div></div></div>`}
+function liH(items){if(!items?.length)return'<li style="color:var(--text-muted);font-style:italic">None listed</li>';return items.map(i=>`<li>${esc(i)}</li>`).join("")}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function hl(t,q){if(!q)return esc(t);return esc(t).replace(new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi"),"<mark>$1</mark>")}
+function aicon(n){return AI[n]||"💫"}
+function findFK(name){
+  if(!name) return -1;
+  // Normalize parenthetical variant names: "Kirlia (Midnight)" → "Kirlia Midnight"
+  const normalized = String(name).trim().replace(/\s*\(([^)]+)\)/g, ' $1').replace(/\s+/g, ' ').trim();
+  const n = normalized.toLowerCase();
+  // 1. Exact match (try both original and normalized)
+  const nOrig = name.toLowerCase().trim();
+  const exact = WIKI_DATA.fakemon.findIndex(f => f.name.toLowerCase() === n || f.name.toLowerCase() === nOrig);
+  if(exact >= 0) return exact;
+  // 2. Search string fully contained in a pokemon name
+  //    e.g. "Kirlia" → "Kirlia Midnight", "Mega Gardevoir" → "Mega Gardevoir Midnight"
+  //    Note: we deliberately avoid the reverse check (n.includes first_word)
+  //    because "mega" is contained in every "Mega X" search and always returned
+  //    the first Mega in the array instead of the correct one.
+  const partial = WIKI_DATA.fakemon.findIndex(f => f.name.toLowerCase().includes(n));
+  return partial >= 0 ? partial : -1;
+}
+let curTab="fakemon",navH=[],srchQ="";
+let lastDetail=null; // {type:"fakemon"|"move"|"ability"|"item", id:number}
+let fakemonTypeFilter="";
+let moveTypeFilter="";
+let applyingPopState=false;
+
+function makeUrlForState(st){
+  const tab=st?.tab||curTab||"fakemon";
+  if(st?.view==="detail" && st?.detail?.type && typeof st.detail.id==="number"){
+    return `#${tab}/${st.detail.type}/${st.detail.id}`;
+  }
+  return `#${tab}`;
+}
+function updateBrowserState(mode){
+  try{
+    const st={
+      tab:curTab,
+      view:getVisibleView(),
+      detail:lastDetail,
+      search:document.getElementById("search")?.value||"",
+      scrollY:window.scrollY||0,
+      fakemonTypeFilter:fakemonTypeFilter||"",
+      moveTypeFilter:moveTypeFilter||""
+    };
+    const url=makeUrlForState(st);
+    if(mode==="replace") history.replaceState(st,"",url);
+    else history.pushState(st,"",url);
+  }catch(e){}
+}
+function applyStateFromHistory(st){
+  if(!st){ return; }
+  applyingPopState=true;
+  try{
+    switchTab(st.tab||"fakemon",{resetHistory:true,resetSearch:false,fromRestore:true});
+
+    if((st.tab||"fakemon")==="fakemon"){
+      buildTypeF();
+      if(st.fakemonTypeFilter) filterType(st.fakemonTypeFilter);
+    }else if(st.tab==="moves"){
+      renderMoves(WIKI_DATA.moves);
+      if(st.moveTypeFilter) applyMovesTypeFilter(st.moveTypeFilter);
+    }else if(st.tab==="abilities"){
+      renderAbilities(WIKI_DATA.abilities);
+    }else if(st.tab==="items"){
+      renderItems(WIKI_DATA.items);
+    }
+
+    if(typeof st.search==="string"){
+      const s=document.getElementById("search");
+      if(s) s.value=st.search;
+      onSearch(st.search);
+    }
+
+    if(st.view==="detail" && st.detail && typeof st.detail.id==="number" && typeof st.detail.type==="string"){
+      openDetail(st.detail.type,st.detail.id,{pushHistory:false,historyMode:"replace"});
+    }
+
+    setTimeout(()=>window.scrollTo(0,st.scrollY||0),0);
+  }finally{
+    applyingPopState=false;
+  }
+}
+
+function getVisibleView(){
+  if(document.getElementById("detail-view").classList.contains("visible")) return "detail";
+  if(document.getElementById("list-view").classList.contains("visible")) return "list";
+  return "home";
+}
+function saveAppState(){
+  try{
+    const st={
+      tab:curTab,
+      view:getVisibleView(),
+      detail:lastDetail,
+      search:document.getElementById("search")?.value||"",
+      scrollY:window.scrollY||0,
+      fakemonTypeFilter:fakemonTypeFilter||"",
+      moveTypeFilter:moveTypeFilter||""
+    };
+    sessionStorage.setItem("wikidex_state",JSON.stringify(st));
+  }catch(e){}
+}
+function restoreAppState(){
+  let st=null;
+  try{ st=JSON.parse(sessionStorage.getItem("wikidex_state")||"null"); }catch(e){ st=null; }
+  if(!st){
+    renderGrid(WIKI_DATA.fakemon);
+    buildTypeF();
+    updateBrowserState("replace");
+    return;
+  }
+
+  const tab=st.tab||"fakemon";
+  switchTab(tab,{resetHistory:true,resetSearch:false,fromRestore:true});
+
+  if(tab==="fakemon"){
+    buildTypeF();
+    if(st.fakemonTypeFilter) filterType(st.fakemonTypeFilter);
+  }else if(tab==="moves"){
+    renderMoves(WIKI_DATA.moves);
+    if(st.moveTypeFilter) applyMovesTypeFilter(st.moveTypeFilter);
+  }else if(tab==="abilities"){
+    renderAbilities(WIKI_DATA.abilities);
+  }else if(tab==="items"){
+    renderItems(WIKI_DATA.items);
+  }
+
+  if(typeof st.search==="string"){
+    const s=document.getElementById("search");
+    if(s) s.value=st.search;
+    onSearch(st.search);
+  }
+
+  if(st.view==="detail" && st.detail && typeof st.detail.id==="number" && typeof st.detail.type==="string"){
+    openDetail(st.detail.type,st.detail.id,{pushHistory:false,historyMode:"replace"});
+  }
+
+  setTimeout(()=>window.scrollTo(0,st.scrollY||0),0);
+  updateBrowserState("replace");
+}
+function showHome(){navH=[];lastDetail=null;["home-view","list-view","detail-view"].forEach(id=>document.getElementById(id).classList.toggle("visible",id==="home-view"));document.getElementById("search").value="";srchQ="";curTab="fakemon";document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));document.getElementById("nav-fakemon").classList.add("active");renderGrid(WIKI_DATA.fakemon);buildTypeF();saveAppState();if(!applyingPopState)updateBrowserState("push")}
+function switchTab(tab,opts){const o=opts||{};curTab=tab;if(o.resetHistory!==true)navH=[];lastDetail=null;if(o.resetSearch!==false){srchQ="";document.getElementById("search").value=""}document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));document.getElementById("nav-"+tab).classList.add("active");document.getElementById("detail-view").classList.remove("visible");if(tab==="fakemon"){document.getElementById("list-view").classList.remove("visible");document.getElementById("home-view").classList.add("visible");renderGrid(WIKI_DATA.fakemon);buildTypeF()}else{document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.add("visible");if(tab==="moves")renderMoves(WIKI_DATA.moves);else if(tab==="abilities")renderAbilities(WIKI_DATA.abilities);else if(tab==="items")renderItems(WIKI_DATA.items)}if(!o.fromRestore){saveAppState();if(!applyingPopState)updateBrowserState("push")}}
+function openDetail(type,id,opts){const o=opts||{};lastDetail={type,id};if(o.pushHistory!==false)navH.push({tab:curTab,scrollY:window.scrollY});document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.remove("visible");document.getElementById("detail-view").classList.add("visible");if(type==="fakemon")renderFKDetail(WIKI_DATA.fakemon[id]);else if(type==="move")renderMoveDetail(WIKI_DATA.moves[id]);else if(type==="ability")renderAbDetail(WIKI_DATA.abilities[id]);else if(type==="item")renderItemDetail(WIKI_DATA.items[id]);window.scrollTo(0,0);saveAppState();if(!applyingPopState)updateBrowserState(o.historyMode==="replace"?"replace":"push")}
+function goBack(){lastDetail=null;const prev=navH.pop()||{tab:"fakemon"};document.getElementById("detail-view").classList.remove("visible");switchTab(prev.tab);setTimeout(()=>{window.scrollTo(0,prev.scrollY||0);saveAppState();if(!applyingPopState)updateBrowserState("push")},50)}
+function onSearch(val){srchQ=val.toLowerCase().trim();if(curTab==="fakemon"){renderGrid(WIKI_DATA.fakemon.filter(f=>f.name.toLowerCase().includes(srchQ)||f.types.some(t=>t.toLowerCase().includes(srchQ))||f.abilities.some(a=>a.toLowerCase().includes(srchQ))))}else if(curTab==="moves"){renderMovesC(WIKI_DATA.moves.filter(m=>m.name.toLowerCase().includes(srchQ)||m.type.toLowerCase().includes(srchQ)||m.category.toLowerCase().includes(srchQ)))}else if(curTab==="abilities"){renderAbC(WIKI_DATA.abilities.filter(a=>a.name.toLowerCase().includes(srchQ)||a.effect.toLowerCase().includes(srchQ)))}else if(curTab==="items"){renderItems(WIKI_DATA.items.filter(i=>i.name.toLowerCase().includes(srchQ)))}saveAppState();if(!applyingPopState)updateBrowserState("replace")}
+function buildTypeF(){const types=[...new Set(WIKI_DATA.fakemon.flatMap(f=>f.types))].sort();document.getElementById("type-filters").innerHTML=`<button class="fbtn active" id="tf-all" onclick="filterType('')">All</button>`+types.map(t=>`<button class="fbtn" id="tf-${t}" onclick="filterType('${t}')">${TI[t.toLowerCase()]||""} ${t}</button>`).join("")}
+function filterType(type){fakemonTypeFilter=type||"";document.querySelectorAll(".fbtn").forEach(b=>{b.classList.remove("active");b.style.background="";b.style.color=""});const btn=document.getElementById(type?`tf-${type}`:"tf-all");if(btn){btn.classList.add("active");if(type){btn.style.background=tc(type);btn.style.color="#111"}}renderGrid(type?WIKI_DATA.fakemon.filter(f=>f.types.some(t=>t.toLowerCase()===type.toLowerCase())):WIKI_DATA.fakemon);saveAppState()}
+function renderGrid(list){document.getElementById("grid-count").textContent=`(${list.length})`;const nr=document.getElementById("no-results");if(!list.length){document.getElementById("main-grid").innerHTML="";nr.style.display="block";return}nr.style.display="none";document.getElementById("main-grid").innerHTML=list.map(f=>{const idx=WIKI_DATA.fakemon.indexOf(f),img=f.gifs[0]||f.images[0]||"",isMega=f.name.toLowerCase().startsWith("mega ");return`<div class="card" onclick="openDetail('fakemon',${idx})">${img?`<img class="card-img" src="${img}" alt="${esc(f.name)}" loading="lazy">`:`<div class="card-img-ph">❓</div>`}<div class="card-name">${hl(f.name,srchQ)}${isMega?` <span class="mega-badge">Mega</span>`:""}</div><div class="type-pills">${f.types.map(t=>tpill(t)).join("")}</div></div>`}).join("")}
+function renderMoves(list){document.getElementById("list-title").innerHTML=`Moves <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;const types=[...new Set(WIKI_DATA.moves.map(m=>m.type).filter(Boolean))].sort();document.getElementById("list-type-filters").innerHTML=`<button class="fbtn active" onclick="filterMovesT('',this)">All</button>`+types.map(t=>`<button class="fbtn" onclick="filterMovesT('${t}',this)">${t}</button>`).join("");renderMovesC(list)}
+function applyMovesTypeFilter(type){
+  moveTypeFilter=type||"";
+  renderMovesC(type?WIKI_DATA.moves.filter(m=>m.type===type):WIKI_DATA.moves);
+  saveAppState();
+  if(!applyingPopState)updateBrowserState("replace");
+}
+function filterMovesT(type,btn){document.querySelectorAll("#list-type-filters .fbtn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");applyMovesTypeFilter(type)}
+function renderMovesC(list){document.getElementById("list-content").innerHTML=list.map(m=>{const idx=WIKI_DATA.moves.indexOf(m),color=tc(m.type),fg=LIGHT.has(m.type?.toLowerCase())?"#111":"#fff",icon=m.image?`<img class="list-card-img" src="${m.image}" alt="">`:(`<div style="width:40px;height:40px;background:${color}33;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">${TI[m.type?.toLowerCase()]||"⚡"}</div>`);return`<div class="list-card" onclick="openDetail('move',${idx})">${icon}<div class="list-card-name">${hl(m.name,srchQ)}</div><div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap"><span class="type-pill" style="background:${color};color:${fg}">${m.type||"?"}</span><span class="cat-badge cat-${m.category||"Status"}">${m.category||"?"}</span></div><div style="margin-left:auto;display:flex;gap:0.4rem"><span class="lcs">${m.power||"—"}</span><span class="lcs">${m.accuracy||"—"}%</span><span class="lcs">PP${m.pp||"?"}</span></div></div>`}).join("")||'<div class="no-results">No moves.</div>'}
+function renderAbilities(list){document.getElementById("list-title").innerHTML=`Abilities <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;document.getElementById("list-type-filters").innerHTML="";renderAbC(list)}
+function renderAbC(list){document.getElementById("list-content").innerHTML=list.map(a=>{const idx=WIKI_DATA.abilities.indexOf(a);return`<div class="ab-card" onclick="openDetail('ability',${idx})"><div class="ab-icon">${aicon(a.name)}</div><div class="ab-text"><h3>${hl(a.name,srchQ)}</h3><p>${esc(a.effect.slice(0,130))}${a.effect.length>130?"…":""}</p></div></div>`}).join("")||'<div class="no-results">No abilities.</div>'}
+function renderItems(list){document.getElementById("list-title").innerHTML=`Items <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;document.getElementById("list-type-filters").innerHTML="";document.getElementById("list-content").innerHTML=`<div class="item-grid">`+list.map(it=>{const idx=WIKI_DATA.items.indexOf(it),img=it.item_image;return`<div class="item-card" onclick="openDetail('item',${idx})">${img?`<img src="${img}" alt="${esc(it.name)}">`:`<div class="item-img-ph">💎</div>`}<div class="item-card-name">${hl(it.name,srchQ)}</div></div>`}).join("")+"</div>"}
+function parseEvo(evoTexts){return(evoTexts||[]).flatMap(text=>{if(text==="N/A")return[];const res=[];const intoR=/evolves?\s+into\s+([A-Z][^,.(]+?)(?:\s*\([^)]*\))?(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;const fromR=/evolves?\s+from\s+([A-Z][^,.(]+?)(?:\s*\([^)]*\))?(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;let m;while((m=intoR.exec(text))!==null)res.push({dir:"into",name:m[1].trim(),text});while((m=fromR.exec(text))!==null)res.push({dir:"from",name:m[1].trim(),text});if(!res.length)res.push({dir:"raw",name:"",text});return res})}
+
+function extractEvolutionItem(evoText){
+  // Palabras que NO son items (son condiciones de amistad, género, etc.)
+  const notItems = /^(high friendship|friendship|happiness|high happiness|affection)$/i;
+  const itemMatches = evoText.match(/(?:exposed to|using|holding|with)\s+([A-Z][^,.]+?)(?:\s+at|\s+when|\s+while|\s+if|\s+after|\.|,|$)/gi);
+  if(itemMatches && itemMatches.length > 0){
+    const itemName = itemMatches[0].replace(/(?:exposed to|using|holding|with)\s+/i, "").trim().replace(/[.,;]+$/, "");
+    if(notItems.test(itemName)) return null;
+    return itemName;
+  }
+  return null;
+}
+
+function extractExtraConditions(evoText){
+  // Extrae condiciones adicionales como "when male", "when female", etc.
+  const extras = [];
+  if(/\bwhen\s+male\b/i.test(evoText)) extras.push("♂ Male only");
+  if(/\bwhen\s+female\b/i.test(evoText)) extras.push("♀ Female only");
+  if(/\bat\s+night\b/i.test(evoText)) extras.push("At night");
+  if(/\bduring\s+the\s+day\b|\bat\s+day\b/i.test(evoText)) extras.push("During day");
+  if(/\bwith\s+high\s+friendship\b|\bwhen\s+friendly\b/i.test(evoText)) extras.push("High friendship");
+  return extras;
+}
+
+function extractEvolutionLevel(evoText){
+  // Buscar nivel de evolución
+  const levelMatch = evoText.match(/at\s+level\s+(\d+)/i);
+  if(levelMatch){
+    return parseInt(levelMatch[1], 10);
+  }
+  return null;
+}
+
+function getEvolutionItemInfo(itemName){
+  // Primero buscar en los items locales
+  const localItem = WIKI_DATA.items?.find(item => 
+    item.name.toLowerCase() === itemName.toLowerCase()
+  );
+  
+  if(localItem){
+    return {
+      name: localItem.name,
+      image: localItem.item_image,
+      url: null, // Item local, no necesita URL externa
+      isLocal: true
+    };
+  }
+  
+  // Si no es local, buscar en Cobblemon (mapeo manual de items conocidos)
+  const cobblemonItems = {
+    "Peat Block": {
+      image: "https://wiki.cobblemon.com/images/7/7a/Peat_Block.png",
+      url: "https://wiki.cobblemon.com/index.php/Peat_Block"
+    },
+    "Moon Stone": {
+      image: "https://wiki.cobblemon.com/images/4/44/Moon_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Moon_Stone"
+    },
+    "Fire Stone": {
+      image: "https://wiki.cobblemon.com/images/5/5c/Fire_Stone.png", 
+      url: "https://wiki.cobblemon.com/index.php/Fire_Stone"
+    },
+    "Water Stone": {
+      image: "https://wiki.cobblemon.com/images/a/a7/Water_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Water_Stone"
+    },
+    "Thunder Stone": {
+      image: "https://wiki.cobblemon.com/images/d/d4/Thunder_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Thunder_Stone"
+    },
+    "Leaf Stone": {
+      image: "https://wiki.cobblemon.com/images/2/2c/Leaf_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Leaf_Stone"
+    },
+    "Dusk Stone": {
+      image: "https://wiki.cobblemon.com/images/0/09/Dusk_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Dusk_Stone"
+    },
+    "Dawn Stone": {
+      image: "https://wiki.cobblemon.com/images/3/37/Dawn_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Dawn_Stone"
+    },
+    "Sun Stone": {
+      image: "https://wiki.cobblemon.com/images/7/7b/Sun_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Sun_Stone"
+    },
+    "Shiny Stone": {
+      image: "https://wiki.cobblemon.com/images/8/89/Shiny_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Shiny_Stone"
+    },
+    "Ice Stone": {
+      image: "https://wiki.cobblemon.com/images/3/30/Ice_Stone.png",
+      url: "https://wiki.cobblemon.com/index.php/Ice_Stone"
+    }
+  };
+  
+  const cobblemonItem = cobblemonItems[itemName];
+  if(cobblemonItem){
+    return {
+      name: itemName,
+      image: cobblemonItem.image,
+      url: cobblemonItem.url,
+      isLocal: false
+    };
+  }
+  
+  return null;
+}
+
+// ── Build a global evolution map (fromIndex → [{toIndex, condition, level, item, extraConditions, isMega}])
+function buildGlobalEvoMap(){
+  const evolutionMap = new Map();
+  for(let i = 0; i < WIKI_DATA.fakemon.length; i++){
+    const pokemon = WIKI_DATA.fakemon[i];
+    if(pokemon.evolution && pokemon.evolution.length > 0){
+      const parsed = parseEvo(pokemon.evolution);
+      parsed.forEach(evo => {
+        if(evo.dir === "into" && evo.name){
+          const targetIdx = findFK(evo.name);
+          if(targetIdx >= 0 && targetIdx !== i){
+            if(!evolutionMap.has(i)) evolutionMap.set(i, []);
+            // Avoid duplicates
+            const already = evolutionMap.get(i).some(e => e.toIndex === targetIdx);
+            if(!already){
+              evolutionMap.get(i).push({
+                toIndex: targetIdx,
+                fromIndex: i,
+                condition: evo.text,
+                level: extractEvolutionLevel(evo.text),
+                item: extractEvolutionItem(evo.text),
+                extraConditions: extractExtraConditions(evo.text),
+                isMega: evo.name.toLowerCase().includes("mega")
+              });
+            }
+          }
+        }
+      });
+    }
+  }
+  return evolutionMap;
+}
+
+// ── Find the root of the chain (non-mega, walks backwards)
+function findChainRoot(startIdx, evolutionMap){
+  const visited = new Set();
+  let idx = startIdx;
+  while(!visited.has(idx)){
+    visited.add(idx);
+    let found = false;
+    for(let [fromIdx, evos] of evolutionMap){
+      for(let evo of evos){
+        if(evo.toIndex === idx && !evo.isMega){
+          idx = fromIdx;
+          found = true;
+          break;
+        }
+      }
+      if(found) break;
+    }
+    if(!found) break;
+  }
+  return idx;
+}
+
+// ── Recursively build a tree node from a given index
+function buildTreeNode(idx, edgeFromParent, evolutionMap, currentIdx, visited){
+  if(visited.has(idx)) return null;
+  const newVisited = new Set(visited);
+  newVisited.add(idx);
+  const pokemon = WIKI_DATA.fakemon[idx];
+  if(!pokemon) return null;
+  const node = {
+    name: pokemon.name,
+    index: idx,
+    isCurrent: idx === currentIdx,
+    image: pokemon.gifs[0] || pokemon.images[0] || null,
+    edge: edgeFromParent || null,
+    children: []
+  };
+  const evos = evolutionMap.get(idx) || [];
+  for(let evo of evos){
+    const child = buildTreeNode(evo.toIndex, evo, evolutionMap, currentIdx, newVisited);
+    if(child) node.children.push(child);
+  }
+  return node;
+}
+
+// ── Build the full evolution tree for a pokemon
+function buildEvolutionTree(currentPokemonName, evoTexts){
+  const currentIdx = findFK(currentPokemonName);
+  if(currentIdx < 0) return null;
+
+  // Handle mega evolutions: start search from base form
+  const currentPokemon = WIKI_DATA.fakemon[currentIdx];
+  let rootStartIdx = currentIdx;
+  if(currentPokemon.name.toLowerCase().startsWith("mega ")){
+    const baseName = currentPokemon.name.replace(/^mega\s+/i, "");
+    const baseIdx = findFK(baseName);
+    if(baseIdx >= 0) rootStartIdx = baseIdx;
+  }
+
+  const evolutionMap = buildGlobalEvoMap();
+  const rootIdx = findChainRoot(rootStartIdx, evolutionMap);
+  const tree = buildTreeNode(rootIdx, null, evolutionMap, currentIdx, new Set());
+  if(!tree) return null;
+
+  function countNodes(n){ return 1 + n.children.reduce((s,c) => s + countNodes(c), 0); }
+  if(countNodes(tree) <= 1) return null;
+
+  return tree;
+}
+
+// ── Collect all root-to-leaf paths (each path = array of nodes)
+function collectPaths(node, pathSoFar){
+  const path = [...pathSoFar, node];
+  if(node.children.length === 0) return [path];
+  return node.children.flatMap(child => collectPaths(child, path));
+}
+
+function renderEvolutionChainVisual(currentPokemonName, evoTexts){
+  const tree = buildEvolutionTree(currentPokemonName, evoTexts);
+  if(!tree){
+    return `<div class="info-block"><h3>Evolution Chain</h3><p style="color:var(--text-muted);font-style:italic">This Pokémon doesn't evolve.</p></div>`;
+  }
+
+  const allPaths = collectPaths(tree, []);
+  const currentPaths = allPaths.filter(path => path.some(n => n.isCurrent));
+
+  let html = '<div class="info-block"><h3>Evolution Chain</h3>';
+
+  if(currentPaths.length > 1){
+    // Multiple paths pass through current pokemon — show each as its own row
+    html += '<div style="display:flex;flex-direction:column;gap:1rem;">';
+    currentPaths.forEach(path => {
+      html += '<div class="evo-chain-visual" style="flex-wrap:wrap;">';
+      path.forEach((node, i) => {
+        if(i > 0) html += renderEvolutionArrow(node.edge);
+        html += renderPokemonCard(node);
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    // Single path — show it as one linear row
+    const path = currentPaths[0] || allPaths[0];
+    html += '<div class="evo-chain-visual" style="flex-wrap:wrap;">';
+    path.forEach((node, i) => {
+      if(i > 0) html += renderEvolutionArrow(node.edge);
+      html += renderPokemonCard(node);
+    });
+    html += '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function renderPokemonCard(pokemon){
+  // The "current" card is not interactive — clicking it would just re-render
+  // the same page, which looks like nothing happened or like going back.
+  const clickable = !pokemon.isCurrent && pokemon.index >= 0;
+  const isMega = pokemon.isMega || pokemon.edge?.isMega || WIKI_DATA.fakemon[pokemon.index]?.name?.toLowerCase().startsWith("mega ");
+  let html = `<div class="evo-pokemon-card ${pokemon.isCurrent ? 'current' : ''}"`;
+  if(clickable){
+    html += ` onclick="openDetail('fakemon',${pokemon.index})" style="cursor:pointer"`;
+  } else {
+    html += ` style="cursor:default"`;
+  }
+  html += `>`;
+  
+  if(pokemon.image){
+    html += `<img src="${pokemon.image}" alt="${esc(pokemon.name)}">`;
+  } else {
+    html += `<div class="evo-card-ph">❓</div>`;
+  }
+  
+  html += `<div class="evo-pokemon-name">${esc(pokemon.name)}</div>`;
+  
+  if(pokemon.isCurrent){
+    html += `<div style="font-size:0.6rem;color:var(--accent);font-weight:600">Current</div>`;
+  }
+  
+  if(isMega){
+    html += `<div style="font-size:0.6rem;color:var(--accent2);font-weight:600">MEGA</div>`;
+  }
+  
+  html += '</div>';
+  return html;
+}
+
+function renderEvolutionArrow(evolution){
+  if(!evolution) return '<div class="evo-arrow-container"><div class="evo-arrow-icon">→</div></div>';
+  let html = '<div class="evo-arrow-container">';
+  html += '<div class="evo-arrow-icon">→</div>';
+
+  const extras = evolution.extraConditions || [];
+
+  // Mostrar nivel, item o condición
+  if(evolution.level){
+    html += `<div class="evo-level-text">Lv. ${evolution.level}</div>`;
+    extras.forEach(e => { html += `<div class="evo-level-text">${esc(e)}</div>`; });
+  } else if(evolution.item){
+    const itemInfo = getEvolutionItemInfo(evolution.item);
+    if(itemInfo){
+      if(itemInfo.isLocal){
+        html += `<div class="evo-item-container" onclick="openDetail('item',${itemInfo.index})">`;
+      } else {
+        html += `<div class="evo-item-container" onclick="window.open('${itemInfo.url}', '_blank')">`;
+      }
+      html += `<img class="evo-item-img" src="${itemInfo.image}" alt="${esc(itemInfo.name)}">`;
+      html += `<div class="evo-item-name">${esc(itemInfo.name)}</div>`;
+      html += '</div>';
+    } else {
+      html += `<div class="evo-level-text">${esc(evolution.item)}</div>`;
+    }
+    extras.forEach(e => { html += `<div class="evo-level-text">${esc(e)}</div>`; });
+  } else if(evolution.isMega){
+    // Mega evolution — find the mega stone in items
+    const megaTarget = WIKI_DATA.fakemon[evolution.toIndex];
+    if(megaTarget){
+      const megaStoneName = megaTarget.name.replace(/^mega\s+/i,"") + "ite";
+      const stoneIdx = WIKI_DATA.items?.findIndex(it => it.name.toLowerCase().includes(megaStoneName.toLowerCase()));
+      if(stoneIdx >= 0){
+        const stone = WIKI_DATA.items[stoneIdx];
+        html += `<div class="evo-item-container" onclick="openDetail('item',${stoneIdx})">`;
+        if(stone.item_image) html += `<img class="evo-item-img" src="${stone.item_image}" alt="${esc(stone.name)}">`;
+        html += `<div class="evo-item-name">${esc(stone.name)}</div>`;
+        html += '</div>';
+      } else {
+        html += `<div class="evo-level-text">Mega Stone</div>`;
+      }
+    }
+  } else {
+    if(extras.length > 0){
+      // Ya tenemos las condiciones parseadas, mostrarlas directamente
+      extras.forEach(e => { html += `<div class="evo-level-text">${esc(e)}</div>`; });
+    } else {
+      // Fallback: mostrar texto de condición truncado
+      const condition = evolution.condition || "";
+      const condMatch = condition.match(/(?:when|at|using|with|holding|exposed to)\s+(.+?)(?:\.|,|$)/i);
+      const condText = condMatch ? condMatch[0].trim() : (condition.length > 40 ? condition.substring(0,37)+"..." : condition);
+      if(condText){
+        html += `<div class="evo-level-text" title="${esc(condition)}">${esc(condText)}</div>`;
+      }
+    }
+  }
+
+  html += '</div>';
+  return html;
+}
+function renderEvo(evoTexts){if(!evoTexts?.length)return'<p style="color:var(--text-muted);font-style:italic">No evolution data.</p>';const parsed=parseEvo(evoTexts);if(!parsed.some(e=>e.dir!=="raw"&&e.name)){return evoTexts.map(t=>`<div style="font-size:0.88rem;color:var(--text-muted);padding:0.2rem 0">▸ ${esc(t)}</div>`).join("")}return`<div class="evo-chain">`+parsed.map(e=>{if(e.dir==="raw")return`<div style="font-size:0.85rem;color:var(--text-muted);padding:0.2rem 0;width:100%">▸ ${esc(e.text)}</div>`;const idx=findFK(e.name),thumb=idx>=0?(WIKI_DATA.fakemon[idx].gifs[0]||WIKI_DATA.fakemon[idx].images[0]):null,arrow=e.dir==="into"?"→":"←";return`<div style="display:flex;align-items:center;gap:0.5rem"><div class="evo-arrow">${arrow}</div><div class="evo-card ${idx>=0?"":"nolink"}" ${idx>=0?`onclick="openDetail('fakemon',${idx})"`:""} title="${idx>=0?"Go to "+e.name:""}">${thumb?`<img src="${thumb}" alt="${esc(e.name)}">`:`<div class="evo-card-ph">🔄</div>`}<div class="evo-name">${esc(e.name)}</div><div class="evo-cond">${esc(e.text.slice(0,90))}${e.text.length>90?"…":""}</div></div></div>`}).join("")+"</div>"}
+function slugifyFakemonName(name){
+  return String(name||"")
+    .trim()
+    .toLowerCase()
+    .replace(/^mega\s+/,"")
+    .replace(/[^a-z0-9]+/g,"_")
+    .replace(/^_+|_+$/g,"");
+}
+function prettyMoveId(id){
+  const s=String(id||"").trim();
+  if(!s) return "—";
+  return s
+    .replace(/[_-]+/g," ")
+    .replace(/([a-z])([0-9])/gi,"$1 $2")
+    .replace(/\b[a-z]/g,m=>m.toUpperCase());
+}
+function parseMoveset(lines){
+  const out={level:[],tm:[],tutor:[],egg:[],other:[]};
+  for(const raw of (lines||[])){
+    const entry=String(raw||"").trim();
+    if(!entry) continue;
+    const i=entry.indexOf(":");
+    if(i<0){ out.other.push({tag:"other",move:entry}); continue; }
+    const left=entry.slice(0,i).trim();
+    const move=entry.slice(i+1).trim();
+    if(/^\d+$/.test(left)){
+      out.level.push({level:parseInt(left,10),move});
+    }else if(left==="tm"){
+      out.tm.push(move);
+    }else if(left==="tutor"){
+      out.tutor.push(move);
+    }else if(left==="egg"){
+      out.egg.push(move);
+    }else{
+      out.other.push({tag:left,move});
+    }
+  }
+  out.level.sort((a,b)=>a.level-b.level || a.move.localeCompare(b.move));
+  out.tm.sort((a,b)=>a.localeCompare(b));
+  out.tutor.sort((a,b)=>a.localeCompare(b));
+  out.egg.sort((a,b)=>a.localeCompare(b));
+  return out;
+}
+const MOVESET_CACHE=new Map(); // slug -> parsed moveset
+function getAppBasePath(){
+  // Asegura que la ruta base termine en '/'.
+  // Caso: https://.../wikidex_site  => /wikidex_site/
+  // Caso: https://.../wikidex_site/index.html => /wikidex_site/
+  const p=window.location.pathname||"/";
+  if(p.endsWith(".html")||p.endsWith(".htm")){
+    return p.replace(/[^\/]+$/, "");
+  }
+  if(p.endsWith("/")) return p;
+  return p+"/";
+}
+async function loadMovesetForFakemon(name){
+  const slug=slugifyFakemonName(name);
+  if(!slug) return null;
+  if(MOVESET_CACHE.has(slug)) return MOVESET_CACHE.get(slug);
+
+  // Fallback (modo file://): cargar desde movesets.js embebido
+  try{
+    const moves=(window.WIKI_MOVESETS||{})[slug];
+    if(Array.isArray(moves)){
+      const parsed=parseMoveset(moves);
+      MOVESET_CACHE.set(slug,parsed);
+      return parsed;
+    }
+  }catch(e){}
+
+  const base=getAppBasePath();
+  const origin=window.location.origin || "";
+
+  // Prueba varias variantes del nombre por si difiere el "slug" del archivo.
+  const candidates=[];
+  const raw=String(name||"").trim();
+  const lower=raw.toLowerCase();
+  candidates.push(slug);
+  candidates.push(lower);
+  candidates.push(lower.replace(/\s+/g,""));
+  candidates.push(lower.replace(/\s+/g,"_"));
+
+  // Quita duplicados preservando orden
+  const uniq=[];
+  const seen=new Set();
+  for(const c of candidates){
+    const v=String(c||"").trim();
+    if(!v || seen.has(v)) continue;
+    seen.add(v);
+    uniq.push(v);
+  }
+
+  let lastErr=null;
+  for(const fileSlug of uniq){
+    const path=`${origin}${base}movesets/${fileSlug}.json`;
+    try{
+      const res=await fetch(path,{cache:"no-store"});
+      if(!res.ok) continue;
+      const txt=await res.text();
+      const txtTrim=txt.trim();
+      let obj=null;
+
+      try{ obj=JSON.parse(txtTrim); }
+      catch(e){
+        // tolerate "JSON fragment" files like:  "moves": [...]
+        try{ obj=JSON.parse(`{${txtTrim}}`); }catch(e2){ obj=null; }
+      }
+
+      let moves=[];
+      if(Array.isArray(obj)) moves=obj;
+      else if(obj && Array.isArray(obj.moves)) moves=obj.moves;
+
+      const parsed=parseMoveset(moves);
+      MOVESET_CACHE.set(slug,parsed);
+      return parsed;
+    }catch(e){
+      lastErr=e;
+    }
+  }
+
+  if(lastErr) throw lastErr;
+  // Si fetch falla (por CORS en file://), intenta una vez más con fallback inline
+  try{
+    const moves2=(window.WIKI_MOVESETS||{})[slug];
+    if(Array.isArray(moves2)){
+      const parsed2=parseMoveset(moves2);
+      MOVESET_CACHE.set(slug,parsed2);
+      return parsed2;
+    }
+  }catch(e){}
+
+  return null;
+}
+function renderMovesetHtml(parsed){
+  if(!parsed) return `<div class="info-block"><h3>Moves</h3><p style="color:var(--text-muted);font-style:italic">No moveset file found.</p></div>`;
+  
+  const makeCollapsible=(id,title,count,contentHtml)=>{
+    return `
+      <div class="moves-accordion-block" id="${id}-block">
+        <div class="info-block">
+          <h3 style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem">
+            <span>${esc(title)}${typeof count==="number"?` (${count})`:""}</span>
+            <button id="${id}-btn" class="copy-btn" type="button" onclick="toggleMovesSection('${id}')">▶</button>
+          </h3>
+          <div id="${id}" class="moves-accordion-content hidden">
+            ${contentHtml}
+          </div>
+        </div>
+      </div>
+    `;
+  };
+
+  const lvlList=parsed.level.length
+    ? `<ul>${parsed.level.map(e=>`<li><strong style="color:var(--text)">Lv. ${e.level}</strong> — ${esc(prettyMoveId(e.move))}</li>`).join("")}</ul>`
+    : `<p style="color:var(--text-muted);font-style:italic;margin-top:0.25rem">None listed</p>`;
+  const tmList=parsed.tm.length
+    ? `<ul>${parsed.tm.map(m=>`<li>${esc(prettyMoveId(m))}</li>`).join("")}</ul>`
+    : `<p style="color:var(--text-muted);font-style:italic;margin-top:0.25rem">None listed</p>`;
+  const tutorList=parsed.tutor.length
+    ? `<ul>${parsed.tutor.map(m=>`<li>${esc(prettyMoveId(m))}</li>`).join("")}</ul>`
+    : `<p style="color:var(--text-muted);font-style:italic;margin-top:0.25rem">None listed</p>`;
+  const eggList=parsed.egg.length
+    ? `<ul>${parsed.egg.map(m=>`<li>${esc(prettyMoveId(m))}</li>`).join("")}</ul>`
+    : `<p style="color:var(--text-muted);font-style:italic;margin-top:0.25rem">None listed</p>`;
+  const otherList=parsed.other.length
+    ? `<ul>${parsed.other.map(e=>`<li><strong style="color:var(--text)">${esc(e.tag)}</strong> — ${esc(prettyMoveId(e.move))}</li>`).join("")}</ul>`
+    : `<p style="color:var(--text-muted);font-style:italic;margin-top:0.25rem">None listed</p>`;
+
+  // ids únicos por render
+  const baseId=`moves-${Math.random().toString(16).slice(2)}`;
+
+  const levelBlock=parsed.level.length ? makeCollapsible(`${baseId}-lvl`,"Level-up",parsed.level.length,lvlList) : "";
+  const tmBlock=parsed.tm.length ? makeCollapsible(`${baseId}-tm`,"TM",parsed.tm.length,tmList) : "";
+  const tutorBlock=parsed.tutor.length ? makeCollapsible(`${baseId}-tutor`,"Tutor",parsed.tutor.length,tutorList) : "";
+  const eggBlock=parsed.egg.length ? makeCollapsible(`${baseId}-egg`,"Egg",parsed.egg.length,eggList) : "";
+  const otherBlock=parsed.other.length ? makeCollapsible(`${baseId}-other`,"Other",parsed.other.length,otherList) : "";
+
+  // Crear contenedor dinámico
+  const blocks=[levelBlock,tmBlock,tutorBlock,eggBlock].filter(Boolean);
+  
+  if(!blocks.length && !otherBlock){
+    return `<div class="info-block"><h3>Moves</h3><p style="color:var(--text-muted);font-style:italic">None listed</p></div>`;
+  }
+
+  let html = '';
+  
+  // Primera fila con hasta 2 bloques
+  if(blocks.length >= 2){
+    html += `<div class="moves-accordion-container">${blocks[0]}${blocks[1]}</div>`;
+    // Segunda fila si hay más bloques
+    if(blocks.length > 2){
+      const remainingBlocks = blocks.slice(2);
+      if(remainingBlocks.length === 1){
+        html += `<div class="moves-accordion-container single-column">${remainingBlocks[0]}</div>`;
+      } else {
+        html += `<div class="moves-accordion-container">${remainingBlocks.join("")}</div>`;
+      }
+    }
+  } else if(blocks.length === 1){
+    html += `<div class="moves-accordion-container single-column">${blocks[0]}</div>`;
+  }
+
+  // Añadir bloque "other" si existe
+  if(otherBlock){
+    html += `<div style="margin-top:0.75rem">${otherBlock}</div>`;
+  }
+
+  return html;
+}
+
+function toggleMovesSection(id){
+  const el=document.getElementById(id);
+  const block=document.getElementById(id+"-block");
+  const btn=document.getElementById(id+"-btn");
+  
+  if(!el || !block || !btn) return;
+  
+  const isHidden=el.classList.contains("hidden");
+  
+  if(isHidden){
+    el.classList.remove("hidden");
+    block.classList.remove("collapsed");
+    btn.textContent="▼";
+  }else{
+    el.classList.add("hidden");
+    block.classList.add("collapsed");
+    btn.textContent="▶";
+  }
+  
+  // Reorganizar los bloques dinámicamente
+  reorganizeMovesAccordions();
+}
+
+function reorganizeMovesAccordions(){
+  const containers=document.querySelectorAll(".moves-accordion-container");
+  
+  containers.forEach(container => {
+    const blocks=Array.from(container.querySelectorAll(".moves-accordion-block"));
+    const openBlocks=blocks.filter(b => !b.querySelector(".moves-accordion-content.hidden"));
+    const closedBlocks=blocks.filter(b => b.querySelector(".moves-accordion-content.hidden"));
+    
+    // Separar en dos columnas
+    const leftColumn=[];
+    const rightColumn=[];
+    
+    let currentColumn="left";
+    
+    // Distribuir bloques abiertos primero
+    openBlocks.forEach(block => {
+      if(currentColumn === "left"){
+        leftColumn.push(block);
+        currentColumn="right";
+      }else{
+        rightColumn.push(block);
+        currentColumn="left";
+      }
+    });
+    
+    // Luego distribuir bloques cerrados
+    closedBlocks.forEach(block => {
+      if(currentColumn === "left"){
+        leftColumn.push(block);
+        currentColumn="right";
+      }else{
+        rightColumn.push(block);
+        currentColumn="left";
+      }
+    });
+    
+    // Reorganizar DOM
+    container.innerHTML="";
+    leftColumn.forEach(block => container.appendChild(block));
+    rightColumn.forEach(block => container.appendChild(block));
+  });
+}
+async function loadFakemonMoveset(name){
+  const host=document.getElementById("fk-moveset");
+  if(!host) return;
+  host.innerHTML=`<div class="info-block"><h3>Moves</h3><p style="color:var(--text-muted);font-style:italic">Loading…</p></div>`;
+  try{
+    const parsed=await loadMovesetForFakemon(name);
+    host.innerHTML=renderMovesetHtml(parsed);
+  }catch(e){
+    const msg=e?.message?String(e.message):"";
+    host.innerHTML=`<div class="info-block"><h3>Moves</h3><p style="color:var(--text-muted);font-style:italic">No moveset file found.</p>${msg?`<p style="color:var(--text-muted);font-size:0.8rem;word-break:break-word">${esc(msg)}</p>`:""}</div>`;
+  }
+}
+function renderGifsSection(f){
+  // Generar rutas para GIFs basadas en el nombre del Pokémon
+  const pokemonName = f.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+  const normalGifPath = `images/gif/${pokemonName}.gif`;
+  const shinyGifPath = `images/gif/${pokemonName}_shiny.gif`;
+  
+  let hasNormalGif = false;
+  let hasShinyGif = false;
+  
+  // Verificar si existen GIFs en las rutas esperadas (usando los datos existentes como fallback)
+  const existingGifs = f.gifs || [];
+  const normalGifFromData = existingGifs.find(gif => !gif.toLowerCase().includes("shiny"));
+  const shinyGifFromData = existingGifs.find(gif => gif.toLowerCase().includes("shiny"));
+  
+  let html = '<div class="gifs-section"><h3>🎬 Animated Sprites</h3>';
+  html += '<div class="gifs-container">';
+  
+  // GIF normal -优先使用新的路径格式
+  hasNormalGif = true; // Asumimos que existe para mostrar la estructura
+  html += '<div class="gif-card">';
+  html += `<img src="${normalGifPath}" alt="${esc(f.name)} (Normal)" loading="lazy" onerror="this.src='${normalGifFromData || ''}'">`;
+  html += '<div class="gif-label normal">Normal</div>';
+  html += '</div>';
+  
+  // GIF shiny -优先使用新的路径格式
+  hasShinyGif = true; // Asumimos que existe para mostrar la estructura
+  html += '<div class="gif-card">';
+  html += `<img src="${shinyGifPath}" alt="${esc(f.name)} (Shiny)" loading="lazy" onerror="this.src='${shinyGifFromData || ''}'">`;
+  html += '<div class="gif-label shiny">Shiny</div>';
+  html += '</div>';
+  
+  html += '</div></div>';
+  return html;
+}
+
+function renderFKDetail(f){
+  const isMega = f.name.toLowerCase().startsWith("mega ");
+
+  // ── Imagen principal: primera de images[], fallback a gifs[]
+  const mainImg = f.images[0] || f.gifs[0] || "";
+  const imgsHtml = mainImg
+    ? `<img class="main-img" id="main-img" src="${mainImg}" alt="${esc(f.name)}">`
+    : `<div class="main-img" style="display:flex;align-items:center;justify-content:center;font-size:4rem">❓</div>`;
+
+  // ── Pokedex entry: string o array de párrafos
+  const entries = Array.isArray(f.pokedex_entry)
+    ? f.pokedex_entry
+    : (f.pokedex_entry ? [f.pokedex_entry] : []);
+  const pokedexHtml = entries.map(e => `<div class="poke-entry">${esc(e)}</div>`).join("");
+
+  // ── Stats base (puede ser objeto simple o nulo si hay form_data)
+  function renderStats(stats){
+    if(!stats || !Object.keys(stats).length)
+      return `<p style="color:var(--text-muted);font-style:italic">No stats.</p>`;
+    return Object.entries(stats).filter(([k])=>k!=="TOTAL").map(([k,v])=>sbar(k,v)).join("")
+      + (stats.TOTAL ? `<div style="margin-top:0.5rem;font-weight:900;color:var(--accent)">Total: ${stats.TOTAL}</div>` : "");
+  }
+
+  // ── Formas con imágenes/stats propios (campo form_data)
+  // Estructura esperada en data.js:
+  // "form_data": [
+  //   { "name": "Normal", "image": "images/...", "stats": { "HP":70, ... } },
+  //   { "name": "Sandy",  "image": "images/...", "stats": { "HP":80, ... } }
+  // ]
+  function renderFormStats(){
+    const forms = f.form_data;
+    if(!forms || !forms.length) return renderStats(f.stats);
+    return forms.map(form => `
+      <div class="form-stats-block">
+        <div class="form-stats-header">
+          ${form.image ? `<img class="form-stats-img" src="${esc(form.image)}" alt="${esc(form.name)}">` : ""}
+          <div class="form-stats-name">${esc(form.name)}</div>
+        </div>
+        ${renderStats(form.stats)}
+      </div>`).join('<div class="form-stats-divider"></div>');
+  }
+
+  const spCmds = (f.spawn_commands||[]).map(cmd =>
+    `<div class="spawn-cmd">${esc(cmd)}<button class="copy-btn" onclick="copyT('${esc(cmd)}')">📋</button></div>`
+  ).join("");
+
+  // ── Interactions: solo mostrar si hay contenido
+  const hasInteractions = f.interactions && f.interactions.length > 0;
+  const behaviorHtml = hasInteractions
+    ? `<div class="two-col">
+        <div class="info-block"><h3>Behavior</h3><ul>${liH(f.behavior)}</ul></div>
+        <div class="info-block"><h3>Pokémon Interactions</h3><ul>${liH(f.interactions)}</ul></div>
+       </div>`
+    : `<div class="info-block"><h3>Behavior</h3><ul>${liH(f.behavior)}</ul></div>`;
+
+  document.getElementById("detail-content").innerHTML=`
+    <div class="detail-header">
+      <div class="detail-imgs">${imgsHtml}</div>
+      <div class="detail-info">
+        <div class="detail-name">${esc(f.name)}${isMega?' <span class="mega-badge">MEGA</span>':""}</div>
+        <div class="type-pills" style="margin-bottom:0.5rem">${(f.types||[]).map(t=>tpill(t)).join("")}</div>
+        ${pokedexHtml}
+        <div class="info-row"><span class="il">Height</span><span class="iv">${f.height||"—"}</span></div>
+        <div class="info-row"><span class="il">Weight</span><span class="iv">${f.weight||"—"}</span></div>
+        <div class="info-row"><span class="il">Gender</span><span class="iv">${(f.gender_ratio||[]).join(", ")||"—"}</span></div>
+        <div class="info-row"><span class="il">Egg Group</span><span class="iv">${(f.egg_groups||[]).join(", ")||"—"}</span></div>
+        ${f.forms?.length?`<div class="info-row"><span class="il">Forms</span><span class="iv">${esc(f.forms.join(", "))}</span></div>`:""}
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="openTab(this,'tab-stats')">📊 Stats</button>
+      <button class="tab" onclick="openTab(this,'tab-moves')">⚔️ Moves</button>
+      <button class="tab" onclick="openTab(this,'tab-abilities')">💫 Abilities</button>
+      <button class="tab" onclick="openTab(this,'tab-evolution')">🔄 Evolution</button>
+      <button class="tab" onclick="openTab(this,'tab-catching')">🎯 Catching</button>
+      <button class="tab" onclick="openTab(this,'tab-behavior')">🏃 Behavior</button>
+      <button class="tab" onclick="openTab(this,'tab-drops')">📦 Drops</button>
+      ${spCmds?`<button class="tab" onclick="openTab(this,'tab-spawn')">🌐 Spawn</button>`:""}
+    </div>
+
+    <div id="tab-stats" class="tab-panel active">
+      <div class="two-col">
+        <div class="info-block"><h3>Base Stats</h3>${renderFormStats()}</div>
+        <div class="info-block"><h3>EXP & EVs</h3><ul>${liH(f.exp_evs)}</ul></div>
+      </div>
+      ${renderGifsSection(f)}
+    </div>
+
+    <div id="tab-moves" class="tab-panel">
+      <div id="fk-moveset"></div>
+    </div>
+
+    <div id="tab-abilities" class="tab-panel">
+      <div class="info-block"><h3>Abilities</h3><ul>${liH(f.abilities)}</ul></div>
+    </div>
+
+    <div id="tab-evolution" class="tab-panel">
+      ${renderEvolutionChainVisual(f.name, f.evolution)}
+    </div>
+
+    <div id="tab-catching" class="tab-panel">
+      <div class="two-col">
+        <div class="info-block"><h3>Catch Data</h3><ul>${liH(f.catching)}</ul></div>
+        <div class="info-block"><h3>Spawns</h3><ul>${liH(f.spawns)}</ul></div>
+      </div>
+    </div>
+
+    <div id="tab-behavior" class="tab-panel">
+      ${behaviorHtml}
+    </div>
+
+    <div id="tab-drops" class="tab-panel">
+      <div class="info-block"><h3>Item Drops</h3><ul>${liH(f.drops)}</ul></div>
+    </div>
+
+    ${spCmds?`<div id="tab-spawn" class="tab-panel"><div class="info-block"><h3>Spawn Commands</h3>${spCmds}</div></div>`:""}
+  `;
+
+  loadFakemonMoveset(f.name);
+}
+function swapImg(src,thumb){document.getElementById("main-img").src=src;document.querySelectorAll(".thumb").forEach(t=>t.classList.remove("active"));thumb.classList.add("active")}
+function openTab(btn,panelId){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");document.getElementById(panelId)?.classList.add("active")}
+function renderMoveDetail(m){
+  const color=tc(m.type),fg=LIGHT.has(m.type?.toLowerCase())?"#111":"#fff";
+  // Image as full-width banner below stats
+  const imgBanner=m.image
+    ?`<div class="move-img-banner"><img src="${m.image}" alt="${esc(m.name)}"></div>`
+    :`<div class="move-img-banner"><div class="move-img-ph">${TI[m.type?.toLowerCase()]||"⚡"}</div></div>`;
+  const fakDist=(m.distribution_fakemon||[]).map(name=>{const idx=findFK(name);return idx>=0?`<span class="dist-tag" onclick="openDetail('fakemon',${idx})">${esc(name)}</span>`:`<span class="dist-tag nolink">${esc(name)}</span>`}).join("");
+  document.getElementById("detail-content").innerHTML=`
+    <div class="move-header">
+      <div class="move-header-top">
+        <div class="mh-left">
+          <div class="detail-name" style="font-size:2rem">${esc(m.name)}</div>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin:0.3rem 0">
+            <span class="type-pill" style="background:${color};color:${fg}">${m.type||"?"}</span>
+            <span class="cat-badge cat-${m.category||"Status"}">${m.category||"?"}</span>
+            ${m.tm?'<span style="background:var(--surface2);font-size:0.75rem;padding:2px 7px;border-radius:4px">TM ✓</span>':""}
+          </div>
+          <div class="move-stats">
+            <div class="ms"><span>Power</span><strong>${m.power||"—"}</strong></div>
+            <div class="ms"><span>Accuracy</span><strong>${m.accuracy||"—"}%</strong></div>
+            <div class="ms"><span>PP</span><strong>${m.pp||"?"}</strong></div>
+          </div>
+          ${m.effects?`<p style="margin-top:0.5rem;font-size:0.88rem;color:var(--text-muted)">${esc(m.effects)}</p>`:""}
+          ${m.flags?.length?`<div style="margin-top:0.3rem;display:flex;flex-wrap:wrap;gap:4px">${m.flags.map(f=>`<span style="background:var(--surface2);border-radius:4px;padding:1px 7px;font-size:0.78rem;color:var(--text-muted)">${esc(f)}</span>`).join("")}</div>`:""}
+        </div>
+      </div>
+      ${imgBanner}
+    </div>
+    <div class="two-col">
+      ${fakDist?`<div class="info-block"><h3>Fakémon that learn this</h3><div class="dist-list">${fakDist}</div></div>`:"<div></div>"}
+      ${m.distribution_additions?.length?`<div class="info-block"><h3>Vanilla Pokémon</h3><div class="dist-list">${m.distribution_additions.map(n=>`<span class="dist-tag nolink">${esc(n)}</span>`).join("")}</div></div>`:"<div></div>"}
+    </div>`}
+function renderAbDetail(a){const icon=aicon(a.name),fakDist=(a.distribution_fakemon||[]).map(name=>{const idx=findFK(name);return idx>=0?`<span class="dist-tag" onclick="openDetail('fakemon',${idx})">${esc(name)}</span>`:`<span class="dist-tag nolink">${esc(name)}</span>`}).join("");document.getElementById("detail-content").innerHTML=`<div class="ability-header"><div class="ability-icon-big">${icon}</div><div><div class="detail-name" style="font-size:2rem">${esc(a.name)}</div><p style="color:var(--text-muted);font-size:0.85rem">Custom Ability</p></div></div><div class="two-col"><div><div class="info-block"><h3>Effect</h3><p style="font-size:0.88rem;color:var(--text-muted)">${esc(a.effect)}</p></div>${a.activation?`<div class="info-block"><h3>Activation</h3><p style="font-size:0.88rem;color:var(--text-muted)">${esc(a.activation)}</p></div>`:""}</div><div>${fakDist?`<div class="info-block"><h3>Fakémon with this ability</h3><div class="dist-list">${fakDist}</div></div>`:""}${a.distribution_additions?.length?`<div class="info-block"><h3>Vanilla Pokémon</h3><div class="dist-list">${a.distribution_additions.map(n=>`<span class="dist-tag nolink">${esc(n)}</span>`).join("")}</div></div>`:""}</div></div>`}
+function renderItemDetail(it){
+  // Recipe images shown in Crafting section
+  const recHtml=(it.recipe_images||[]).map(img=>`
+    <div class="recipe-entry">
+      <div class="recipe-label">${esc(img.name.replace(/\.png$/i,"").replace(/\.gif$/i,"").replace(/_/g," "))}</div>
+      <img class="recipe-img" src="${img.path}" alt="${esc(img.name)}" style="max-width:320px;width:100%">
+    </div>`).join("");
+  // Item icon
+  const itemImg=it.item_image
+    ?`<img class="item-detail-img" src="${it.item_image}" alt="${esc(it.name)}">`
+    :`<div class="item-detail-img-ph">💎</div>`;
+  document.getElementById("detail-content").innerHTML=`
+    <div class="item-detail-header">
+      ${itemImg}
+      <div>
+        <div class="detail-name" style="font-size:2rem">${esc(it.name)}</div>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.2rem">Custom Item</p>
+        ${it.description?`<p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.4rem;max-width:600px">${esc(it.description.slice(0,280))}</p>`:""}
+      </div>
+    </div>
+    ${recHtml?`<div class="info-block"><h3>Crafting</h3><div class="recipe-grid">${recHtml}</div></div>`:""}`}
+function copyT(text){navigator.clipboard?.writeText(text)}
+window.addEventListener("beforeunload",saveAppState);
+window.addEventListener("popstate",(ev)=>{
+  // Navigate inside SPA instead of leaving to external referrer
+  if(ev && ev.state){
+    applyStateFromHistory(ev.state);
+  }
+});
+document.addEventListener("DOMContentLoaded",restoreAppState);
+</script>
+</body>
+</html>
