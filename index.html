@@ -46,7 +46,14 @@ nav{display:flex;gap:0.25rem;margin-left:auto}
 .back-btn:hover{color:var(--text);border-color:var(--accent)}
 .detail-header{display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;flex-wrap:wrap}
 .detail-imgs{display:flex;flex-direction:column;align-items:center;gap:0.5rem;min-width:180px}
-.main-img{width:180px;height:180px;object-fit:contain;border-radius:8px;background:var(--surface2);image-rendering:pixelated}
+.main-img{width:180px;height:180px;object-fit:contain;border-radius:8px;background:var(--surface2);image-rendering:pixelated;cursor:zoom-in;transition:opacity 0.15s}
+.main-img:hover{opacity:0.85}
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;image-rendering:pixelated;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,0.8)}
+#lightbox-close{position:absolute;top:1rem;right:1.2rem;color:#fff;font-size:2rem;cursor:pointer;line-height:1;opacity:0.7;transition:opacity 0.15s;user-select:none}
+#lightbox-close:hover{opacity:1}
+.gif-card img{cursor:zoom-in}
 .thumb-row{display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:center}
 .thumb{width:56px;height:56px;object-fit:contain;border-radius:6px;cursor:pointer;border:2px solid transparent;background:var(--surface2);image-rendering:pixelated;transition:border-color 0.15s}
 .thumb.active{border-color:var(--accent)}
@@ -94,6 +101,9 @@ nav{display:flex;gap:0.25rem;margin-left:auto}
 .cat-Physical{background:#b8361e;color:#fff}
 .cat-Special{background:#2d6db5;color:#fff}
 .cat-Status{background:#555;color:#fff}
+.cat-badge-filter.cat-Physical:not(.active){border-color:#b8361e;color:#b8361e}
+.cat-badge-filter.cat-Special:not(.active){border-color:#2d6db5;color:#2d6db5}
+.cat-badge-filter.cat-Status:not(.active){border-color:#555;color:#8b949e}
 
 /* ── ABILITY ── */
 .ability-header{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
@@ -203,6 +213,11 @@ nav{display:flex;gap:0.25rem;margin-left:auto}
 .copy-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:0.75rem;padding:2px 5px}
 .copy-btn:hover{color:var(--accent)}
 .no-results{text-align:center;padding:2rem;color:var(--text-muted);font-style:italic}
+#search-results-view{display:none}
+#search-results-view.visible{display:block}
+.sr-section{margin-bottom:1.5rem}
+.sr-section-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:var(--accent);margin-bottom:0.6rem;padding-bottom:0.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem}
+.sr-count{font-family:'Nunito',sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:600}
 mark{background:rgba(247,129,102,0.25);color:inherit;border-radius:2px}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -249,6 +264,9 @@ mark{background:rgba(247,129,102,0.25);color:inherit;border-radius:2px}
     <button class="back-btn" onclick="goBack()">← Back</button>
     <div id="detail-content"></div>
   </div>
+  <div id="search-results-view">
+    <div id="search-results-content"></div>
+  </div>
 </div>
 <script src="data.js"></script>
 <script src="movesets.js"></script>
@@ -285,8 +303,9 @@ function findFK(name){
 }
 let curTab="fakemon",navH=[],srchQ="";
 let lastDetail=null; // {type:"fakemon"|"move"|"ability"|"item", id:number}
-let fakemonTypeFilter="";
+let fakemonTypeFilter=[]; // Array para permitir hasta 2 tipos simultáneamente
 let moveTypeFilter="";
+let moveCategoryFilter=""; // Nuevo filtro para categoría de movimientos
 let applyingPopState=false;
 
 function makeUrlForState(st){
@@ -304,8 +323,9 @@ function updateBrowserState(mode){
       detail:lastDetail,
       search:document.getElementById("search")?.value||"",
       scrollY:window.scrollY||0,
-      fakemonTypeFilter:fakemonTypeFilter||"",
-      moveTypeFilter:moveTypeFilter||""
+      fakemonTypeFilter:fakemonTypeFilter||[],
+      moveTypeFilter:moveTypeFilter||"",
+      moveCategoryFilter:moveCategoryFilter||""
     };
     const url=makeUrlForState(st);
     if(mode==="replace") history.replaceState(st,"",url);
@@ -319,11 +339,22 @@ function applyStateFromHistory(st){
     switchTab(st.tab||"fakemon",{resetHistory:true,resetSearch:false,fromRestore:true});
 
     if((st.tab||"fakemon")==="fakemon"){
+      if(st.fakemonTypeFilter && Array.isArray(st.fakemonTypeFilter)){
+        fakemonTypeFilter=st.fakemonTypeFilter;
+      }
       buildTypeF();
-      if(st.fakemonTypeFilter) filterType(st.fakemonTypeFilter);
+      if(fakemonTypeFilter.length>0){
+        // Re-renderizar con los filtros aplicados
+        const filtered=WIKI_DATA.fakemon.filter(f=>f.types.some(t=>fakemonTypeFilter.includes(t)));
+        renderGrid(filtered);
+      }
     }else if(st.tab==="moves"){
+      if(st.moveTypeFilter) moveTypeFilter=st.moveTypeFilter;
+      if(st.moveCategoryFilter) moveCategoryFilter=st.moveCategoryFilter;
       renderMoves(WIKI_DATA.moves);
-      if(st.moveTypeFilter) applyMovesTypeFilter(st.moveTypeFilter);
+      if(moveTypeFilter || moveCategoryFilter){
+        applyMovesFilters();
+      }
     }else if(st.tab==="abilities"){
       renderAbilities(WIKI_DATA.abilities);
     }else if(st.tab==="items"){
@@ -359,8 +390,9 @@ function saveAppState(){
       detail:lastDetail,
       search:document.getElementById("search")?.value||"",
       scrollY:window.scrollY||0,
-      fakemonTypeFilter:fakemonTypeFilter||"",
-      moveTypeFilter:moveTypeFilter||""
+      fakemonTypeFilter:fakemonTypeFilter||[],
+      moveTypeFilter:moveTypeFilter||"",
+      moveCategoryFilter:moveCategoryFilter||""
     };
     sessionStorage.setItem("wikidex_state",JSON.stringify(st));
   }catch(e){}
@@ -379,11 +411,22 @@ function restoreAppState(){
   switchTab(tab,{resetHistory:true,resetSearch:false,fromRestore:true});
 
   if(tab==="fakemon"){
+    if(st.fakemonTypeFilter && Array.isArray(st.fakemonTypeFilter)){
+      fakemonTypeFilter=st.fakemonTypeFilter;
+    }
     buildTypeF();
-    if(st.fakemonTypeFilter) filterType(st.fakemonTypeFilter);
+    if(fakemonTypeFilter.length>0){
+      // Re-renderizar con los filtros aplicados
+      const filtered=WIKI_DATA.fakemon.filter(f=>f.types.some(t=>fakemonTypeFilter.includes(t)));
+      renderGrid(filtered);
+    }
   }else if(tab==="moves"){
+    if(st.moveTypeFilter) moveTypeFilter=st.moveTypeFilter;
+    if(st.moveCategoryFilter) moveCategoryFilter=st.moveCategoryFilter;
     renderMoves(WIKI_DATA.moves);
-    if(st.moveTypeFilter) applyMovesTypeFilter(st.moveTypeFilter);
+    if(moveTypeFilter || moveCategoryFilter){
+      applyMovesFilters();
+    }
   }else if(tab==="abilities"){
     renderAbilities(WIKI_DATA.abilities);
   }else if(tab==="items"){
@@ -404,26 +447,178 @@ function restoreAppState(){
   updateBrowserState("replace");
 }
 function showHome(){navH=[];lastDetail=null;["home-view","list-view","detail-view"].forEach(id=>document.getElementById(id).classList.toggle("visible",id==="home-view"));document.getElementById("search").value="";srchQ="";curTab="fakemon";document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));document.getElementById("nav-fakemon").classList.add("active");renderGrid(WIKI_DATA.fakemon);buildTypeF();saveAppState();if(!applyingPopState)updateBrowserState("push")}
-function switchTab(tab,opts){const o=opts||{};curTab=tab;if(o.resetHistory!==true)navH=[];lastDetail=null;if(o.resetSearch!==false){srchQ="";document.getElementById("search").value=""}document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));document.getElementById("nav-"+tab).classList.add("active");document.getElementById("detail-view").classList.remove("visible");if(tab==="fakemon"){document.getElementById("list-view").classList.remove("visible");document.getElementById("home-view").classList.add("visible");renderGrid(WIKI_DATA.fakemon);buildTypeF()}else{document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.add("visible");if(tab==="moves")renderMoves(WIKI_DATA.moves);else if(tab==="abilities")renderAbilities(WIKI_DATA.abilities);else if(tab==="items")renderItems(WIKI_DATA.items)}if(!o.fromRestore){saveAppState();if(!applyingPopState)updateBrowserState("push")}}
-function openDetail(type,id,opts){const o=opts||{};lastDetail={type,id};if(o.pushHistory!==false)navH.push({tab:curTab,scrollY:window.scrollY});document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.remove("visible");document.getElementById("detail-view").classList.add("visible");if(type==="fakemon")renderFKDetail(WIKI_DATA.fakemon[id]);else if(type==="move")renderMoveDetail(WIKI_DATA.moves[id]);else if(type==="ability")renderAbDetail(WIKI_DATA.abilities[id]);else if(type==="item")renderItemDetail(WIKI_DATA.items[id]);window.scrollTo(0,0);saveAppState();if(!applyingPopState)updateBrowserState(o.historyMode==="replace"?"replace":"push")}
-function goBack(){lastDetail=null;const prev=navH.pop()||{tab:"fakemon"};document.getElementById("detail-view").classList.remove("visible");switchTab(prev.tab);setTimeout(()=>{window.scrollTo(0,prev.scrollY||0);saveAppState();if(!applyingPopState)updateBrowserState("push")},50)}
-function onSearch(val){srchQ=val.toLowerCase().trim();if(curTab==="fakemon"){renderGrid(WIKI_DATA.fakemon.filter(f=>f.name.toLowerCase().includes(srchQ)||f.types.some(t=>t.toLowerCase().includes(srchQ))||f.abilities.some(a=>a.toLowerCase().includes(srchQ))))}else if(curTab==="moves"){renderMovesC(WIKI_DATA.moves.filter(m=>m.name.toLowerCase().includes(srchQ)||m.type.toLowerCase().includes(srchQ)||m.category.toLowerCase().includes(srchQ)))}else if(curTab==="abilities"){renderAbC(WIKI_DATA.abilities.filter(a=>a.name.toLowerCase().includes(srchQ)||a.effect.toLowerCase().includes(srchQ)))}else if(curTab==="items"){renderItems(WIKI_DATA.items.filter(i=>i.name.toLowerCase().includes(srchQ)))}saveAppState();if(!applyingPopState)updateBrowserState("replace")}
-function buildTypeF(){const types=[...new Set(WIKI_DATA.fakemon.flatMap(f=>f.types))].sort();document.getElementById("type-filters").innerHTML=`<button class="fbtn active" id="tf-all" onclick="filterType('')">All</button>`+types.map(t=>`<button class="fbtn" id="tf-${t}" onclick="filterType('${t}')">${TI[t.toLowerCase()]||""} ${t}</button>`).join("")}
-function filterType(type){fakemonTypeFilter=type||"";document.querySelectorAll(".fbtn").forEach(b=>{b.classList.remove("active");b.style.background="";b.style.color=""});const btn=document.getElementById(type?`tf-${type}`:"tf-all");if(btn){btn.classList.add("active");if(type){btn.style.background=tc(type);btn.style.color="#111"}}renderGrid(type?WIKI_DATA.fakemon.filter(f=>f.types.some(t=>t.toLowerCase()===type.toLowerCase())):WIKI_DATA.fakemon);saveAppState()}
+function switchTab(tab,opts){const o=opts||{};curTab=tab;if(o.resetHistory!==true)navH=[];lastDetail=null;if(o.resetSearch!==false){srchQ="";document.getElementById("search").value=""}document.getElementById("search-results-view").classList.remove("visible");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));document.getElementById("nav-"+tab).classList.add("active");document.getElementById("detail-view").classList.remove("visible");if(tab==="fakemon"){document.getElementById("list-view").classList.remove("visible");document.getElementById("home-view").classList.add("visible");renderGrid(WIKI_DATA.fakemon);buildTypeF()}else{document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.add("visible");if(tab==="moves")renderMoves(WIKI_DATA.moves);else if(tab==="abilities")renderAbilities(WIKI_DATA.abilities);else if(tab==="items")renderItems(WIKI_DATA.items)}if(!o.fromRestore){saveAppState();if(!applyingPopState)updateBrowserState("push")}}
+function openDetail(type,id,opts){const o=opts||{};lastDetail={type,id};if(o.pushHistory!==false)navH.push({tab:curTab,scrollY:window.scrollY});document.getElementById("home-view").classList.remove("visible");document.getElementById("list-view").classList.remove("visible");document.getElementById("search-results-view").classList.remove("visible");document.getElementById("detail-view").classList.add("visible");if(type==="fakemon")renderFKDetail(WIKI_DATA.fakemon[id]);else if(type==="move")renderMoveDetail(WIKI_DATA.moves[id]);else if(type==="ability")renderAbDetail(WIKI_DATA.abilities[id]);else if(type==="item")renderItemDetail(WIKI_DATA.items[id]);window.scrollTo(0,0);saveAppState();if(!applyingPopState)updateBrowserState(o.historyMode==="replace"?"replace":"push")}
+function goBack(){lastDetail=null;const prev=navH.pop()||{tab:"fakemon"};document.getElementById("detail-view").classList.remove("visible");document.getElementById("search-results-view").classList.remove("visible");switchTab(prev.tab);setTimeout(()=>{window.scrollTo(0,prev.scrollY||0);saveAppState();if(!applyingPopState)updateBrowserState("push")},50)}
+function onSearch(val){
+  srchQ=val.toLowerCase().trim();
+  if(!srchQ){
+    hideSearchResults();
+    // If we were in a detail, stay showing it; otherwise restore list/grid
+    if(!document.getElementById("detail-view").classList.contains("visible")){
+      if(curTab==="fakemon"){renderGrid(WIKI_DATA.fakemon);}
+      else if(curTab==="moves"){renderMovesC(WIKI_DATA.moves);}
+      else if(curTab==="abilities"){renderAbC(WIKI_DATA.abilities);}
+      else if(curTab==="items"){renderItems(WIKI_DATA.items);}
+    }
+    saveAppState();if(!applyingPopState)updateBrowserState("replace");
+    return;
+  }
+  // Hide all views (including detail) and show global results
+  document.getElementById("detail-view").classList.remove("visible");
+  document.getElementById("home-view").classList.remove("visible");
+  document.getElementById("list-view").classList.remove("visible");
+  lastDetail=null;
+  showGlobalSearch(srchQ);
+  saveAppState();if(!applyingPopState)updateBrowserState("replace");
+}
+function hideSearchResults(){
+  document.getElementById("search-results-view").classList.remove("visible");
+  if(curTab==="fakemon"){document.getElementById("home-view").classList.add("visible");}
+  else{document.getElementById("list-view").classList.add("visible");}
+}
+function showGlobalSearch(q){
+  const fkResults=WIKI_DATA.fakemon.filter(f=>f.name.toLowerCase().includes(q)||f.types.some(t=>t.toLowerCase().includes(q))||f.abilities.some(a=>a.toLowerCase().includes(q)));
+  const mvResults=WIKI_DATA.moves.filter(m=>m.name.toLowerCase().includes(q)||m.type?.toLowerCase().includes(q)||m.category?.toLowerCase().includes(q));
+  const abResults=WIKI_DATA.abilities.filter(a=>a.name.toLowerCase().includes(q)||a.effect.toLowerCase().includes(q));
+  const itResults=WIKI_DATA.items.filter(i=>i.name.toLowerCase().includes(q));
+  const total=fkResults.length+mvResults.length+abResults.length+itResults.length;
+  let html="";
+  if(fkResults.length){
+    html+=`<div class="sr-section"><div class="sr-section-title">🐉 Fakémon <span class="sr-count">${fkResults.length}</span></div>`;
+    html+=fkResults.map(f=>{const idx=WIKI_DATA.fakemon.indexOf(f),img=f.images[0]||f.gifs[0]||"",isMega=f.name.toLowerCase().startsWith("mega ");
+      return`<div class="list-card" onclick="openDetail('fakemon',${idx})">${img?`<img class="list-card-img" src="${img}" alt="">`:`<div style="width:40px;height:40px;background:var(--surface2);border-radius:4px;display:flex;align-items:center;justify-content:center">❓</div>`}<div class="list-card-name">${hl(f.name,q)}${isMega?` <span class="mega-badge">Mega</span>`:""}</div><div style="display:flex;gap:0.3rem;flex-wrap:wrap">${f.types.map(t=>tpill(t)).join("")}</div></div>`;
+    }).join("");html+="</div>";
+  }
+  if(mvResults.length){
+    html+=`<div class="sr-section"><div class="sr-section-title">⚔️ Moves <span class="sr-count">${mvResults.length}</span></div>`;
+    html+=mvResults.map(m=>{const idx=WIKI_DATA.moves.indexOf(m),color=tc(m.type),fg=LIGHT.has(m.type?.toLowerCase())?"#111":"#fff";
+      const icon=m.image?`<img class="list-card-img" src="${m.image}" alt="">`:(`<div style="width:40px;height:40px;background:${color}33;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">${TI[m.type?.toLowerCase()]||"⚡"}</div>`);
+      return`<div class="list-card" onclick="openDetail('move',${idx})">${icon}<div class="list-card-name">${hl(m.name,q)}</div><div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap"><span class="type-pill" style="background:${color};color:${fg}">${m.type||"?"}</span><span class="cat-badge cat-${m.category||"Status"}">${m.category||"?"}</span></div><div style="margin-left:auto;display:flex;gap:0.4rem"><span class="lcs">${m.power||"—"}</span><span class="lcs">${m.accuracy||"—"}%</span><span class="lcs">PP${m.pp||"?"}</span></div></div>`;
+    }).join("");html+="</div>";
+  }
+  if(abResults.length){
+    html+=`<div class="sr-section"><div class="sr-section-title">💫 Abilities <span class="sr-count">${abResults.length}</span></div>`;
+    html+=abResults.map(a=>{const idx=WIKI_DATA.abilities.indexOf(a);
+      return`<div class="ab-card" onclick="openDetail('ability',${idx})"><div class="ab-icon">${aicon(a.name)}</div><div class="ab-text"><h3>${hl(a.name,q)}</h3><p>${esc(a.effect.slice(0,130))}${a.effect.length>130?"…":""}</p></div></div>`;
+    }).join("");html+="</div>";
+  }
+  if(itResults.length){
+    html+=`<div class="sr-section"><div class="sr-section-title">💎 Items <span class="sr-count">${itResults.length}</span></div><div style="display:flex;flex-wrap:wrap;gap:0.6rem;">`;
+    html+=itResults.map(it=>{const idx=WIKI_DATA.items.indexOf(it),img=it.item_image;
+      return`<div class="item-card" onclick="openDetail('item',${idx})">${img?`<img src="${img}" alt="${esc(it.name)}">`:`<div class="item-img-ph">💎</div>`}<div class="item-card-name">${hl(it.name,q)}</div></div>`;
+    }).join("");html+="</div></div>";
+  }
+  if(!total) html=`<div class="no-results">No results for "<strong>${esc(q)}</strong>"</div>`;
+  document.getElementById("search-results-content").innerHTML=html;
+  document.getElementById("search-results-view").classList.add("visible");
+}
+function buildTypeF(){const types=[...new Set(WIKI_DATA.fakemon.flatMap(f=>f.types))].sort();document.getElementById("type-filters").innerHTML=`<button class="fbtn ${fakemonTypeFilter.length===0?'active':''}" id="tf-all" onclick="filterType('')">All</button>`+types.map(t=>`<button class="fbtn ${fakemonTypeFilter.includes(t)?'active':''}" id="tf-${t}" onclick="filterType('${t}')" style="${fakemonTypeFilter.includes(t)?`background:${tc(t)};color:#111`:''}">${TI[t.toLowerCase()]||""} ${t}</button>`).join("")}
+function filterType(type){
+  if(!type){
+    // Limpiar todos los filtros
+    fakemonTypeFilter=[];
+  }else{
+    // Toggle del tipo clickeado
+    const index=fakemonTypeFilter.indexOf(type);
+    if(index>=0){
+      // Si ya está seleccionado, quitarlo
+      fakemonTypeFilter.splice(index,1);
+    }else{
+      // Si no está seleccionado, agregarlo
+      if(fakemonTypeFilter.length>=2){
+        // Si ya hay 2 tipos, quitar el primero automáticamente
+        fakemonTypeFilter.shift();
+      }
+      fakemonTypeFilter.push(type);
+    }
+  }
+  
+  // Actualizar estilos de los botones
+  document.querySelectorAll(".fbtn").forEach(b=>{
+    b.classList.remove("active");
+    b.style.background="";
+    b.style.color="";
+  });
+  
+  if(fakemonTypeFilter.length===0){
+    document.getElementById("tf-all").classList.add("active");
+  }else{
+    fakemonTypeFilter.forEach(t=>{
+      const btn=document.getElementById(`tf-${t}`);
+      if(btn){
+        btn.classList.add("active");
+        btn.style.background=tc(t);
+        btn.style.color="#111";
+      }
+    });
+  }
+  
+  // Filtrar con lógica OR: mostrar pokémon que tengan al menos uno de los tipos seleccionados
+  const filtered=fakemonTypeFilter.length===0
+    ?WIKI_DATA.fakemon
+    :WIKI_DATA.fakemon.filter(f=>f.types.some(t=>fakemonTypeFilter.includes(t)));
+  
+  renderGrid(filtered);
+  saveAppState();
+}
 function renderGrid(list){document.getElementById("grid-count").textContent=`(${list.length})`;const nr=document.getElementById("no-results");if(!list.length){document.getElementById("main-grid").innerHTML="";nr.style.display="block";return}nr.style.display="none";document.getElementById("main-grid").innerHTML=list.map(f=>{const idx=WIKI_DATA.fakemon.indexOf(f),img=f.gifs[0]||f.images[0]||"",isMega=f.name.toLowerCase().startsWith("mega ");return`<div class="card" onclick="openDetail('fakemon',${idx})">${img?`<img class="card-img" src="${img}" alt="${esc(f.name)}" loading="lazy">`:`<div class="card-img-ph">❓</div>`}<div class="card-name">${hl(f.name,srchQ)}${isMega?` <span class="mega-badge">Mega</span>`:""}</div><div class="type-pills">${f.types.map(t=>tpill(t)).join("")}</div></div>`}).join("")}
-function renderMoves(list){document.getElementById("list-title").innerHTML=`Moves <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;const types=[...new Set(WIKI_DATA.moves.map(m=>m.type).filter(Boolean))].sort();document.getElementById("list-type-filters").innerHTML=`<button class="fbtn active" onclick="filterMovesT('',this)">All</button>`+types.map(t=>`<button class="fbtn" onclick="filterMovesT('${t}',this)">${t}</button>`).join("");renderMovesC(list)}
-function applyMovesTypeFilter(type){
-  moveTypeFilter=type||"";
-  renderMovesC(type?WIKI_DATA.moves.filter(m=>m.type===type):WIKI_DATA.moves);
+function renderMoves(list){
+  document.getElementById("list-title").innerHTML=`Moves <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;
+  
+  // Filtros de tipo
+  const types=[...new Set(WIKI_DATA.moves.map(m=>m.type).filter(Boolean))].sort();
+  const typeFilters=`<div style="margin-bottom:0.5rem"><strong style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Tipo:</strong></div><div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem"><button class="fbtn ${moveTypeFilter===''?'active':''}" onclick="filterMovesT('',this)">All</button>`+types.map(t=>`<button class="fbtn ${moveTypeFilter===t?'active':''}" onclick="filterMovesT('${t}',this)">${t}</button>`).join("")+'</div>';
+  
+  // Filtros de categoría
+  const categories=['Physical','Special','Status'];
+  const categoryFilters=`<div style="margin-bottom:0.5rem"><strong style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Categoría:</strong></div><div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem"><button class="fbtn ${moveCategoryFilter===''?'active':''}" onclick="filterMovesCategory('',this)">All</button>`+categories.map(c=>`<button class="fbtn ${moveCategoryFilter===c?'active':''} cat-badge-filter cat-${c}" onclick="filterMovesCategory('${c}',this)">${c}</button>`).join("")+'</div>';
+  
+  document.getElementById("list-type-filters").innerHTML=typeFilters+categoryFilters;
+  renderMovesC(list);
+}
+function applyMovesFilters(){
+  // Aplicar ambos filtros con lógica AND
+  let filtered=WIKI_DATA.moves;
+  
+  // Filtrar por tipo si está seleccionado
+  if(moveTypeFilter){
+    filtered=filtered.filter(m=>m.type===moveTypeFilter);
+  }
+  
+  // Filtrar por categoría si está seleccionada
+  if(moveCategoryFilter){
+    filtered=filtered.filter(m=>m.category===moveCategoryFilter);
+  }
+  
+  // Actualizar el título con el conteo
+  document.getElementById("list-title").innerHTML=`Moves <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${filtered.length})</span>`;
+  
+  renderMovesC(filtered);
   saveAppState();
   if(!applyingPopState)updateBrowserState("replace");
 }
-function filterMovesT(type,btn){document.querySelectorAll("#list-type-filters .fbtn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");applyMovesTypeFilter(type)}
+
+function filterMovesT(type,btn){
+  moveTypeFilter=type||"";
+  // Actualizar estilos de botones de tipo
+  document.querySelectorAll("#list-type-filters .fbtn:not(.cat-badge-filter)").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  applyMovesFilters();
+}
+
+function filterMovesCategory(category,btn){
+  moveCategoryFilter=category||"";
+  // Actualizar estilos de botones de categoría
+  document.querySelectorAll("#list-type-filters .cat-badge-filter").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  applyMovesFilters();
+}
 function renderMovesC(list){document.getElementById("list-content").innerHTML=list.map(m=>{const idx=WIKI_DATA.moves.indexOf(m),color=tc(m.type),fg=LIGHT.has(m.type?.toLowerCase())?"#111":"#fff",icon=m.image?`<img class="list-card-img" src="${m.image}" alt="">`:(`<div style="width:40px;height:40px;background:${color}33;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">${TI[m.type?.toLowerCase()]||"⚡"}</div>`);return`<div class="list-card" onclick="openDetail('move',${idx})">${icon}<div class="list-card-name">${hl(m.name,srchQ)}</div><div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap"><span class="type-pill" style="background:${color};color:${fg}">${m.type||"?"}</span><span class="cat-badge cat-${m.category||"Status"}">${m.category||"?"}</span></div><div style="margin-left:auto;display:flex;gap:0.4rem"><span class="lcs">${m.power||"—"}</span><span class="lcs">${m.accuracy||"—"}%</span><span class="lcs">PP${m.pp||"?"}</span></div></div>`}).join("")||'<div class="no-results">No moves.</div>'}
 function renderAbilities(list){document.getElementById("list-title").innerHTML=`Abilities <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;document.getElementById("list-type-filters").innerHTML="";renderAbC(list)}
 function renderAbC(list){document.getElementById("list-content").innerHTML=list.map(a=>{const idx=WIKI_DATA.abilities.indexOf(a);return`<div class="ab-card" onclick="openDetail('ability',${idx})"><div class="ab-icon">${aicon(a.name)}</div><div class="ab-text"><h3>${hl(a.name,srchQ)}</h3><p>${esc(a.effect.slice(0,130))}${a.effect.length>130?"…":""}</p></div></div>`}).join("")||'<div class="no-results">No abilities.</div>'}
 function renderItems(list){document.getElementById("list-title").innerHTML=`Items <span style="font-family:Nunito;font-size:0.9rem;color:var(--text-muted)">(${list.length})</span>`;document.getElementById("list-type-filters").innerHTML="";document.getElementById("list-content").innerHTML=`<div class="item-grid">`+list.map(it=>{const idx=WIKI_DATA.items.indexOf(it),img=it.item_image;return`<div class="item-card" onclick="openDetail('item',${idx})">${img?`<img src="${img}" alt="${esc(it.name)}">`:`<div class="item-img-ph">💎</div>`}<div class="item-card-name">${hl(it.name,srchQ)}</div></div>`}).join("")+"</div>"}
-function parseEvo(evoTexts){return(evoTexts||[]).flatMap(text=>{if(text==="N/A")return[];const res=[];const intoR=/evolves?\s+into\s+([A-Z][^,.(]+?)(?:\s*\([^)]*\))?(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;const fromR=/evolves?\s+from\s+([A-Z][^,.(]+?)(?:\s*\([^)]*\))?(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;let m;while((m=intoR.exec(text))!==null)res.push({dir:"into",name:m[1].trim(),text});while((m=fromR.exec(text))!==null)res.push({dir:"from",name:m[1].trim(),text});if(!res.length)res.push({dir:"raw",name:"",text});return res})}
+function parseEvo(evoTexts){return(evoTexts||[]).flatMap(text=>{if(text==="N/A")return[];const res=[];const intoR=/evolves?\s+into\s+([A-Z][^,.(]+?(?:\s*\([^)]+\))?)(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;const fromR=/evolves?\s+from\s+([A-Z][^,.(]+?(?:\s*\([^)]+\))?)(?:\s+when|\s+while|\s+at\s|\s+with|\s+using|\s+holding|\s+if\s|\s+after|\.|,|$)/gi;let m;while((m=intoR.exec(text))!==null)res.push({dir:"into",name:m[1].trim(),text});while((m=fromR.exec(text))!==null)res.push({dir:"from",name:m[1].trim(),text});if(!res.length)res.push({dir:"raw",name:"",text});return res})}
 
 function extractEvolutionItem(evoText){
   // Palabras que NO son items (son condiciones de amistad, género, etc.)
@@ -646,6 +841,11 @@ function collectPaths(node, pathSoFar){
 function renderEvolutionChainVisual(currentPokemonName, evoTexts){
   const tree = buildEvolutionTree(currentPokemonName, evoTexts);
   if(!tree){
+    const hasEvoText=(evoTexts||[]).some(t=>t&&t!=="N/A");
+    if(hasEvoText){
+      const rawHtml=evoTexts.map(t=>`<div style="font-size:0.88rem;color:var(--text-muted);padding:0.3rem 0;display:flex;gap:0.5rem;align-items:flex-start"><span style="color:var(--accent);flex-shrink:0">▸</span><span>${esc(t)}</span></div>`).join("");
+      return `<div class="info-block"><h3>Evolution Chain</h3>${rawHtml}</div>`;
+    }
     return `<div class="info-block"><h3>Evolution Chain</h3><p style="color:var(--text-muted);font-style:italic">This Pokémon doesn't evolve.</p></div>`;
   }
 
@@ -779,6 +979,7 @@ function slugifyFakemonName(name){
   return String(name||"")
     .trim()
     .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
     .replace(/^mega\s+/,"")
     .replace(/[^a-z0-9]+/g,"_")
     .replace(/^_+|_+$/g,"");
@@ -1082,14 +1283,14 @@ function renderGifsSection(f){
   // GIF normal -优先使用新的路径格式
   hasNormalGif = true; // Asumimos que existe para mostrar la estructura
   html += '<div class="gif-card">';
-  html += `<img src="${normalGifPath}" alt="${esc(f.name)} (Normal)" loading="lazy" onerror="this.src='${normalGifFromData || ''}'">`;
+  html += `<img src="${normalGifPath}" alt="${esc(f.name)} (Normal)" loading="lazy" onclick="openLightbox(this.src)" onerror="this.src='${normalGifFromData || ''}';this.onerror=null">`;
   html += '<div class="gif-label normal">Normal</div>';
   html += '</div>';
   
   // GIF shiny -优先使用新的路径格式
   hasShinyGif = true; // Asumimos que existe para mostrar la estructura
   html += '<div class="gif-card">';
-  html += `<img src="${shinyGifPath}" alt="${esc(f.name)} (Shiny)" loading="lazy" onerror="this.src='${shinyGifFromData || ''}'">`;
+  html += `<img src="${shinyGifPath}" alt="${esc(f.name)} (Shiny)" loading="lazy" onclick="openLightbox(this.src)" onerror="this.src='${shinyGifFromData || ''}';this.onerror=null">`;
   html += '<div class="gif-label shiny">Shiny</div>';
   html += '</div>';
   
@@ -1103,7 +1304,7 @@ function renderFKDetail(f){
   // ── Imagen principal: primera de images[], fallback a gifs[]
   const mainImg = f.images[0] || f.gifs[0] || "";
   const imgsHtml = mainImg
-    ? `<img class="main-img" id="main-img" src="${mainImg}" alt="${esc(f.name)}">`
+    ? `<img class="main-img" id="main-img" src="${mainImg}" alt="${esc(f.name)}" onclick="openLightbox(this.src)">`
     : `<div class="main-img" style="display:flex;align-items:center;justify-content:center;font-size:4rem">❓</div>`;
 
   // ── Pokedex entry: string o array de párrafos
@@ -1275,6 +1476,17 @@ function renderItemDetail(it){
     </div>
     ${recHtml?`<div class="info-block"><h3>Crafting</h3><div class="recipe-grid">${recHtml}</div></div>`:""}`}
 function copyT(text){navigator.clipboard?.writeText(text)}
+function openLightbox(src){
+  document.getElementById("lightbox-img").src=src;
+  document.getElementById("lightbox").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+  document.getElementById("lightbox-img").src="";
+  document.body.style.overflow="";
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLightbox();});
 window.addEventListener("beforeunload",saveAppState);
 window.addEventListener("popstate",(ev)=>{
   // Navigate inside SPA instead of leaving to external referrer
@@ -1284,5 +1496,9 @@ window.addEventListener("popstate",(ev)=>{
 });
 document.addEventListener("DOMContentLoaded",restoreAppState);
 </script>
+<div id="lightbox" onclick="closeLightbox()">
+  <div id="lightbox-close" onclick="closeLightbox()">✕</div>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
 </body>
 </html>
