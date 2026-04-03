@@ -3563,7 +3563,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Armor_Press__Armor_Press.png"
+            "image": "images/moves/armor_press.png"
         }, {
             "name": "Backpetal",
             "type": "Grass",
@@ -3576,7 +3576,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Backpetal__Backpetal.png"
+            "image": "images/moves/backpetal.png"
         }, {
             "name": "Bolt Beam",
             "type": "Electric",
@@ -3589,7 +3589,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Bolt_Beam__Bolt_Beam.png"
+            "image": "images/moves/bolt_beam.png"
         }, {
             "name": "Breeze Ball",
             "type": "Flying",
@@ -3602,7 +3602,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Breeze_Ball__Breeze_Ball.png"
+            "image": "images/moves/breeze_ball.png"
         }, {
             "name": "Bullet Barrage",
             "type": "Steel",
@@ -3615,7 +3615,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Bullet_Barrage__Bullet_Barrage.png"
+            "image": "images/moves/bullet_barrage.png"
         }, {
             "name": "Butterfly Landing",
             "type": "Bug",
@@ -3628,7 +3628,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Butterfly_Landing__Butterfly_Landing.png"
+            "image": "images/moves/butterfly_landing.png"
         }, {
             "name": "Bygone Bash",
             "type": "Ghost",
@@ -3641,7 +3641,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Bygone_Bash__Bygone_Bash.png"
+            "image": "images/moves/bygone_bash.png"
         }, {
             "name": "Cargo Throw",
             "type": "Grass",
@@ -3654,7 +3654,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Cargo_Throw__Cargo_Throw.png"
+            "image": "images/moves/cargo_throw.png"
         }, {
             "name": "Chill Out",
             "type": "Ice",
@@ -3667,7 +3667,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move in Laser's Fakemon Pack (cannot be learned by any Pokemon naturally). Can be a TM Move in Laser's Additions.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Chill_Out__Chill_Out.png"
+            "image": "images/moves/chill_out.png"
         }, {
             "name": "Conjuring Fire",
             "type": "Fire",
@@ -3680,7 +3680,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Conjuring_Fire__Conjuring_Fire.png"
+            "image": "images/moves/conjuring_fire.png"
         }, {
             "name": "Crystal Spear",
             "type": "Rock",
@@ -3693,7 +3693,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Crystal_Spear__Crystal_Spear.png"
+            "image": "images/moves/crystal_spear.png"
         }, {
             "name": "Deep Freeze",
             "type": "Ice",
@@ -3706,7 +3706,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move in Laser's Fakemon Pack (cannot be learned by any Pokemon naturally). Can be a TM Move in Laser's Additions.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Deep_Freeze__Deep_Freeze.png"
+            "image": "images/moves/deep_freeze.png"
         }, {
             "name": "Dig Deep",
             "type": "Steel",
@@ -3719,7 +3719,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dig_Deep__Dig_Deep.png"
+            "image": "images/moves/dig_deep.png"
         }, {
             "name": "Dragon Axe",
             "type": "Dragon",
@@ -3732,7 +3732,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dragon_Axe__Dragon_Axe.png"
+            "image": "images/moves/dragon_axe.png"
         }, {
             "name": "Dragon Fang",
             "type": "Dragon",
@@ -3745,7 +3745,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dragon_Fang__Dragon_Fang.png"
+            "image": "images/moves/dragon_fang.png"
         }, {
             "name": "Dragon Press",
             "type": "Dragon",
@@ -3758,7 +3758,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dragon_Press__Dragon_Press.png"
+            "image": "images/moves/dragon_press.png"
         }, {
             "name": "Dragon Trap",
             "type": "Dragon",
@@ -3771,7 +3771,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dragon_Trap__Dragon_Trap.png"
+            "image": "images/moves/dragon_trap.png"
         }, {
             "name": "Dragon's Fist",
             "type": "Dragon",
@@ -3784,7 +3784,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": null
+            "image": "images/moves/dragons_fist.png"
         }, {
             "name": "Dropkix",
             "type": "Bug",
@@ -3797,7 +3797,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Dropkix__Dropkix.png"
+            "image": "images/moves/dropkix.png"
         }, {
             "name": "Echo Shards",
             "type": "Dark",
@@ -3810,7 +3810,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Echo_Shards__Echo_Shards.png"
+            "image": "images/moves/echo_shards.png"
         }, {
             "name": "Eerie Dance",
             "type": "Ghost",
@@ -3823,7 +3823,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Eerie_Dance__Eerie_Dance.png"
+            "image": "images/moves/eerie_dance.png"
         }, {
             "name": "Ensnare",
             "type": "Bug",
@@ -3836,7 +3836,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Ensnare__Ensnare.png"
+            "image": "images/moves/ensnare.png"
         }, {
             "name": "Fey Blade",
             "type": "Fairy",
@@ -3849,7 +3849,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Fey_Blade__Fey_Blade.png"
+            "image": "images/moves/fey_blade.png"
         }, {
             "name": "Fire Bomb",
             "type": "Fire",
@@ -3862,7 +3862,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Fire_Bomb__Fire_Bomb.png"
+            "image": "images/moves/fire_bomb.png"
         }, {
             "name": "Five Star Punch",
             "type": "Bug",
@@ -3875,7 +3875,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Five_Star_Punch__Five_Star_Punch.png"
+            "image": "images/moves/five_star_punch.png"
         }, {
             "name": "Flashbang",
             "type": "Normal",
@@ -3888,7 +3888,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Flashbang__Flashbang.png"
+            "image": "images/moves/flashbang.png"
         }, {
             "name": "Fleur Dance",
             "type": "Fairy",
@@ -3901,7 +3901,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Fleur_Dance__Fleur_Dance.png"
+            "image": "images/moves/fleur_dance.png"
         }, {
             "name": "Flying Kick",
             "type": "Flying",
@@ -3914,7 +3914,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Flying_Kick__Flying_Kick.png"
+            "image": "images/moves/flying_kick.png"
         }, {
             "name": "Fossil Fang",
             "type": "Rock",
@@ -3927,7 +3927,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Fossil_Fang__Fossil_Fang.png"
+            "image": "images/moves/fossil_fang.png"
         }, {
             "name": "Frigid Water",
             "type": "Water",
@@ -3940,7 +3940,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Frigid_Water__Frigid_Water.png"
+            "image": "images/moves/frigid_water.png"
         }, {
             "name": "G-Max Presto",
             "type": "Fairy",
@@ -3953,7 +3953,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/G-Max_Presto__G-Max_Presto.png"
+            "image": "images/moves/g-max_presto.png"
         }, {
             "name": "Generation Dance",
             "type": "Rock",
@@ -3966,7 +3966,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Generation_Dance__Generation_Dance.png"
+            "image": "images/moves/generation_dance.png"
         }, {
             "name": "Giant Punch",
             "type": "Normal",
@@ -3979,7 +3979,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Giant_Punch__Giant_Punch.png"
+            "image": "images/moves/giant_punch.png"
         }, {
             "name": "Glacial Crash",
             "type": "Ice",
@@ -3992,7 +3992,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Glacial_Crash__Glacial_Crash.png"
+            "image": "images/moves/glacial_crash.png"
         }, {
             "name": "Guard Coat",
             "type": "Normal",
@@ -4005,7 +4005,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Guard_Coat__Guard_Coat.png"
+            "image": "images/moves/guard_coat.png"
         }, {
             "name": "Guard Press",
             "type": "Rock",
@@ -4018,7 +4018,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Guard_Press__Guard_Press.png"
+            "image": "images/moves/guard_press.png"
         }, {
             "name": "Guardian Beam",
             "type": "Water",
@@ -4031,7 +4031,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Guardian_Beam__Guardian_Beam.png"
+            "image": "images/moves/guardian_beam.png"
         }, {
             "name": "Hammer Down",
             "type": "Rock",
@@ -4044,7 +4044,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Hammer_Down__Hammer_Down.png"
+            "image": "images/moves/hammer_down.png"
         }, {
             "name": "Helio Beam",
             "type": "Electric",
@@ -4057,7 +4057,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Helio_Beam__Helio_Beam.png"
+            "image": "images/moves/helio_beam.png"
         }, {
             "name": "Hold the Line",
             "type": "Fighting",
@@ -4070,7 +4070,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Hold_the_Line__Hold_the_Line.png"
+            "image": "images/moves/hold_the_line.png"
         }, {
             "name": "Honey Bomb",
             "type": "Bug",
@@ -4083,7 +4083,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Honey_Bomb__Honey_Bomb.png"
+            "image": "images/moves/honey_bomb.png"
         }, {
             "name": "Honeydew",
             "type": "Bug",
@@ -4096,7 +4096,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Honeydew__Honeydew.png"
+            "image": "images/moves/honeydew.png"
         }, {
             "name": "Hypnoblast",
             "type": "Psychic",
@@ -4109,7 +4109,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Hypnoblast__Hypnoblast.png"
+            "image": "images/moves/hypnoblast.png"
         }, {
             "name": "Ice Age",
             "type": "Ice",
@@ -4122,7 +4122,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Ice_Age__Ice_Age.png"
+            "image": "images/moves/ice_age.png"
         }, {
             "name": "Iron Age",
             "type": "Steel",
@@ -4135,7 +4135,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Iron_Age__Iron_Age.png"
+            "image": "images/moves/iron_age.png"
         }, {
             "name": "Iron Fang",
             "type": "Steel",
@@ -4148,7 +4148,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Iron_Fang__Iron_Fang.png"
+            "image": "images/moves/iron_fang.png"
         }, {
             "name": "Last Stand",
             "type": "Fighting",
@@ -4161,7 +4161,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Last_Stand__Last_Stand.png"
+            "image": "images/moves/last_stand.png"
         }, {
             "name": "Let It Cook",
             "type": "Fairy",
@@ -4174,7 +4174,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Let_It_Cook__Let_It_Cook.png"
+            "image": "images/moves/let_it_cook.png"
         }, {
             "name": "Leviathan Pulse",
             "type": "Water",
@@ -4187,7 +4187,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Leviathan_Pulse__Leviathan_Pulse.png"
+            "image": "images/moves/leviathan_pulse.png"
         }, {
             "name": "Lock-In",
             "type": "Steel",
@@ -4200,7 +4200,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Lock-In__Lock-In.png"
+            "image": "images/moves/lock-in.png"
         }, {
             "name": "Magic Missile",
             "type": "Psychic",
@@ -4213,7 +4213,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Magic_Missile__Magic_Missile.png"
+            "image": "images/moves/magic_missile.png"
         }, {
             "name": "Magic Trick",
             "type": "Fairy",
@@ -4226,7 +4226,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Magic_Trick__Magic_Trick.png"
+            "image": "images/moves/magic_trick.png"
         }, {
             "name": "Mantis Strike",
             "type": "Bug",
@@ -4239,7 +4239,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Mantis_Strike__Mantis_Strike.png"
+            "image": "images/moves/mantis_strike.png"
         }, {
             "name": "Marine Light",
             "type": "Water",
@@ -4252,7 +4252,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Marine_Light__Marine_Light.png"
+            "image": "images/moves/marine_light.png"
         }, {
             "name": "Mind Bend",
             "type": "Psychic",
@@ -4265,7 +4265,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Mind_Bend__Mind_Bend.png"
+            "image": "images/moves/mind_bend.png"
         }, {
             "name": "Mountain Storm",
             "type": "Electric",
@@ -4278,7 +4278,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Mountain_Storm__Mountain_Storm.png"
+            "image": "images/moves/mountain_storm.png"
         }, {
             "name": "Night Terror",
             "type": "Dark",
@@ -4291,7 +4291,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Night_Terror__Night_Terror.png"
+            "image": "images/moves/night_terror.png"
         }, {
             "name": "Nightlight",
             "type": "Dark",
@@ -4304,7 +4304,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Nightlight__Nightlight.png"
+            "image": "images/moves/nightlight.png"
         }, {
             "name": "Nosedive",
             "type": "Flying",
@@ -4317,7 +4317,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Nosedive__Nosedive.png"
+            "image": "images/moves/nosedive.png"
         }, {
             "name": "Oblique Kick",
             "type": "Dark",
@@ -4330,7 +4330,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Oblique_Kick__Oblique_Kick.png"
+            "image": "images/moves/oblique_kick.png"
         }, {
             "name": "Page Turn",
             "type": "Psychic",
@@ -4343,7 +4343,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Page_Turn__Page_Turn.png"
+            "image": "images/moves/page_turn.png"
         }, {
             "name": "Pamper",
             "type": "Normal",
@@ -4356,7 +4356,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Pamper__Pamper.png"
+            "image": "images/moves/pamper.png"
         }, {
             "name": "Paper Cut",
             "type": "Normal",
@@ -4369,7 +4369,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Paper_Cut__Paper_Cut.png"
+            "image": "images/moves/paper_cut.png"
         }, {
             "name": "Phantom Blade",
             "type": "Ghost",
@@ -4382,7 +4382,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Phantom_Blade__Phantom_Blade.png"
+            "image": "images/moves/phantom_blade.png"
         }, {
             "name": "Phantom Trick",
             "type": "Ghost",
@@ -4395,7 +4395,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Phantom_Trick__Phantom_Trick.png"
+            "image": "images/moves/phantom_trick.png"
         }, {
             "name": "Pitfall",
             "type": "Ground",
@@ -4408,7 +4408,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Pitfall__Pitfall.png"
+            "image": "images/moves/pitfall.png"
         }, {
             "name": "Potshot",
             "type": "Dark",
@@ -4421,7 +4421,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Potshot__Potshot.png"
+            "image": "images/moves/potshot.png"
         }, {
             "name": "Psychic Snap",
             "type": "Psychic",
@@ -4434,7 +4434,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Psychic_Snap__Psychic_Snap.png"
+            "image": "images/moves/psychic_snap.png"
         }, {
             "name": "Psyclone",
             "type": "Psychic",
@@ -4447,7 +4447,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Psyclone__Psyclone.png"
+            "image": "images/moves/psyclone.png"
         }, {
             "name": "Psydrive",
             "type": "Psychic",
@@ -4460,7 +4460,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Psydrive__Psydrive.png"
+            "image": "images/moves/psydrive.png"
         }, {
             "name": "Pumpkin Bomb",
             "type": "Grass",
@@ -4473,7 +4473,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Pumpkin_Bomb__Pumpkin_Bomb.png"
+            "image": "images/moves/pumpkin_bomb.png"
         }, {
             "name": "Quick-Fire",
             "type": "Fire",
@@ -4486,7 +4486,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Quick-Fire__Quick-Fire.png"
+            "image": "images/moves/quick-fire.png"
         }, {
             "name": "Rainbow Wing",
             "type": "Flying",
@@ -4499,7 +4499,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Rainbow_Wing__Rainbow_Wing.png"
+            "image": "images/moves/rainbow_wing.png"
         }, {
             "name": "Relic Dance",
             "type": "Normal",
@@ -4512,7 +4512,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Relic_Dance__Relic_Dance.png"
+            "image": "images/moves/relic_dance.png"
         }, {
             "name": "Reshiram Beam",
             "type": "Dragon",
@@ -4525,7 +4525,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Reshiram_Beam__Reshiram_Beam.png"
+            "image": "images/moves/reshiram_beam.png"
         }, {
             "name": "Root Out",
             "type": "Grass",
@@ -4538,7 +4538,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Root_Out__Root_Out.png"
+            "image": "images/moves/root_out.png"
         }, {
             "name": "Sand Shift",
             "type": "Ground",
@@ -4551,7 +4551,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Sand_Shift__Sand_Shift.png"
+            "image": "images/moves/sand_shift.png"
         }, {
             "name": "Seamitar Slash",
             "type": "Water",
@@ -4564,7 +4564,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Seamitar_Slash__Seamitar_Slash.png"
+            "image": "images/moves/seamitar_slash.png"
         }, {
             "name": "Seismic Wave",
             "type": "Ground",
@@ -4577,7 +4577,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Seismic_Wave__Seismic_Wave.png"
+            "image": "images/moves/seismic_wave.png"
         }, {
             "name": "Shadow Stars",
             "type": "Dark",
@@ -4590,7 +4590,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Shadow_Stars__Shadow_Stars.png"
+            "image": "images/moves/shadow_stars.png"
         }, {
             "name": "Shiver Dance",
             "type": "Ice",
@@ -4603,7 +4603,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Shiver_Dance__Shiver_Dance.png"
+            "image": "images/moves/shiver_dance.png"
         }, {
             "name": "Showdown Mode",
             "type": "Bug",
@@ -4616,7 +4616,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Showdown_Mode__Showdown_Mode.png"
+            "image": "images/moves/showdown_mode.png"
         }, {
             "name": "Sleep Charm",
             "type": "Psychic",
@@ -4629,7 +4629,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Sleep_Charm__Sleep_Charm.png"
+            "image": "images/moves/sleep_charm.png"
         }, {
             "name": "Slick Slime",
             "type": "Poison",
@@ -4642,7 +4642,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Slick_Slime__Slick_Slime.png"
+            "image": "images/moves/slick_slime.png"
         }, {
             "name": "Slime Ball",
             "type": "Poison",
@@ -4655,7 +4655,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Slime_Ball__Slime_Ball.png"
+            "image": "images/moves/slime_ball.png"
         }, {
             "name": "Snow Bank",
             "type": "Ice",
@@ -4668,7 +4668,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Snow_Bank__Snow_Bank.png"
+            "image": "images/moves/snow_bank.png"
         }, {
             "name": "Soak Up",
             "type": "Water",
@@ -4681,7 +4681,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Soak_Up__Soak_Up.png"
+            "image": "images/moves/soak_up.png"
         }, {
             "name": "Soft Serve",
             "type": "Fairy",
@@ -4694,7 +4694,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Soft_Serve__Soft_Serve.png"
+            "image": "images/moves/soft_serve.png"
         }, {
             "name": "Sonic Shriek",
             "type": "Dark",
@@ -4707,7 +4707,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Sonic_Shriek__Sonic_Shriek.png"
+            "image": "images/moves/sonic_shriek.png"
         }, {
             "name": "Spirit Drain",
             "type": "Ghost",
@@ -4720,7 +4720,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Spirit_Drain__Spirit_Drain.png"
+            "image": "images/moves/spirit_drain.png"
         }, {
             "name": "Spirit Song",
             "type": "Normal",
@@ -4733,7 +4733,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Spirit_Song__Spirit_Song.png"
+            "image": "images/moves/spirit_song.png"
         }, {
             "name": "Starshower",
             "type": "Normal",
@@ -4746,7 +4746,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Starshower__Starshower.png"
+            "image": "images/moves/starshower.png"
         }, {
             "name": "Steel Cutter",
             "type": "Steel",
@@ -4759,7 +4759,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Steel_Cutter__Steel_Cutter.png"
+            "image": "images/moves/steel_cutter.png"
         }, {
             "name": "Stone Age",
             "type": "Rock",
@@ -4772,7 +4772,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Stone_Age__Stone_Age.png"
+            "image": "images/moves/stone_age.png"
         }, {
             "name": "Storm Siphon",
             "type": "Electric",
@@ -4785,7 +4785,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Storm_Siphon__Storm_Siphon.png"
+            "image": "images/moves/storm_siphon.png"
         }, {
             "name": "Sugar Crash",
             "type": "Fairy",
@@ -4798,7 +4798,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Sugar_Crash__Sugar_Crash.png"
+            "image": "images/moves/sugar_crash.png"
         }, {
             "name": "Terra Bite",
             "type": "Ground",
@@ -4811,7 +4811,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": null
+            "image": "images/moves/terra_bite.png"
         }, {
             "name": "Terrain Blade",
             "type": "Normal",
@@ -4824,7 +4824,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Terrain_Blade__Terrain_Blade.png"
+            "image": "images/moves/terrain_blade.png"
         }, {
             "name": "Thunder Claw",
             "type": "Electric",
@@ -4837,7 +4837,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Thunder_Claw__Thunder_Claw.png"
+            "image": "images/moves/thunder_claw.png"
         }, {
             "name": "Tiger Bridge",
             "type": "Dark",
@@ -4850,7 +4850,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Tiger_Bridge__Tiger_Bridge.png"
+            "image": "images/moves/tiger_bridge.png"
         }, {
             "name": "Triple Fury",
             "type": "Flying",
@@ -4863,7 +4863,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move.",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Triple_Fury__Triple_Fury.png"
+            "image": "images/moves/triple_fury.png"
         }, {
             "name": "Triple Tumble",
             "type": "Normal",
@@ -4876,7 +4876,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Triple_Tumble__Triple_Tumble.png"
+            "image": "images/moves/triple_tumble.png"
         }, {
             "name": "Turn Tail",
             "type": "Flying",
@@ -4889,7 +4889,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Turn_Tail__Turn_Tail.png"
+            "image": "images/moves/turn_tail.png"
         }, {
             "name": "Valley Drop",
             "type": "Rock",
@@ -4902,7 +4902,7 @@ const WIKI_DATA = {
             "tm": "Can be a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Valley_Drop__Valley_Drop.png"
+            "image": "images/moves/valley_drop.png"
         }, {
             "name": "Vengeance of Generations",
             "type": "Ghost",
@@ -4915,7 +4915,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Vengeance_of_Generations__Vengeance_of_Generations.png"
+            "image": "images/moves/vengeance_of_generations.png"
         }, {
             "name": "Vine Press",
             "type": "Grass",
@@ -4928,7 +4928,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Vine_Press__Vine_Press.png"
+            "image": "images/moves/vine_press.png"
         }, {
             "name": "Vital Drain",
             "type": "Dark",
@@ -4941,7 +4941,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Vital_Drain__Vital_Drain.png"
+            "image": "images/moves/vital_drain.png"
         }, {
             "name": "Vital Slash",
             "type": "Dark",
@@ -4954,7 +4954,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Vital_Slash__Vital_Slash.png"
+            "image": "images/moves/vital_slash.png"
         }, {
             "name": "Volatile Extract",
             "type": "Fire",
@@ -4967,7 +4967,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Volatile_Extract__Volatile_Extract.png"
+            "image": "images/moves/volatile_extract.png"
         }, {
             "name": "Zekrom Kick",
             "type": "Dragon",
@@ -4980,7 +4980,7 @@ const WIKI_DATA = {
             "tm": "Not a TM Move",
             "distribution_fakemon": [],
             "distribution_additions": [],
-            "image": "images/moves/Zekrom_Kick__Zekrom_Kick.png"
+            "image": "images/moves/zekrom_kick.png"
         }
     ],
     abilities: [{
