@@ -1637,7 +1637,7 @@ const WIKI_DATA = {
             "spawn_commands": ["/spawnpokemon golett copper", "/spawnpokemon golett copper shiny", "/spawnpokemon golett exposed_copper", "/spawnpokemon golett exposed_copper shiny", "/spawnpokemon golett weathered_copper", "/spawnpokemon golett weathered_copper shiny", "/spawnpokemon golett oxidized_copper", "/spawnpokemon golett oxidized_copper shiny"],
             "forms": ["Copper", "Exposed-Copper", "Weathered-Copper", "Oxidized-Copper"],
             "gifs": ["images/gif/golett_copper.gif", "images/gif/golett_copper_shiny.gif"],
-            "images": ["golett_copper.gif"]
+            "images": ["images/fakemon/golett_copper.gif"]
         }, {
             "name": "Golurk Copper",
             "types": ["Steel", "Electric"],
@@ -1679,7 +1679,7 @@ const WIKI_DATA = {
             "spawn_commands": [],
             "forms": ["Mega-Copper", "Mega-Exposed-Copper", "Mega-Weathered-Copper", "Mega-Oxidized-Copper"],
             "gifs": ["images/gif/golurk_copper_mega.gif", "images/gif/golurk_copper_mega_shiny.gif"],
-            "images": ["golurk_mega.gif"]
+            "images": ["images/fakemon/golurk_mega.gif"]
         }, {
             "name": "Spiritube",
             "types": ["Electric", "Ghost"],
